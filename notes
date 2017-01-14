@@ -1,6 +1,8 @@
-flags:
+stocker tout les arg dans une liste chainee
+s_arg
+int		no;
+char *	flag;
+void *	arg;
 
-# = 
-0 = 
-- =
-space = 
+parser tout les arg et caster selon les flag detectes. 
+
