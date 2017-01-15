@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 17:54:40 by ygokol            #+#    #+#             */
-/*   Updated: 2017/01/14 22:05:10 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/01/15 19:47:13 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,24 @@ int ft_printf(const char *format, ...)
 	va_start(ap, format);
 	i = 0;
 	int x = 0;
-	while (i <= (int)va_arg(ap, void*))
+	while (format[x] != '\0')
 	{
-		tmp->arg = va_arg(ap, void*);
 		if ((char)format[x] == '%')
 		{
-			tmp->flag[0] = (char)format[x];
-			tmp->flag[1] = (char)format[x + 1];
+			tmp->arg = va_arg(ap, void*);
+			tmp->type = (char)format[x + 1];
+			printf("type: |%c| nb: %d\n", tmp->type, i);
+			if (!(tmp->next = (t_argmnt *)malloc(sizeof(t_argmnt))))
+				return (-1);
+			tmp = tmp->next;
 			i++;
 		}
-		printf("OK\n");
-		tmp = tmp->next;
 		x++;
-		printf("%c", format[x]);
 	}
+	printf("OK\n");
 	tmp->next = NULL;
 	printf("nb d'arguments: %d\n", i);
 	va_end(ap);
-	printf("%s, %s/n", tmp->flag, (char*)tmp->arg);
 	return (0);
 }
 
