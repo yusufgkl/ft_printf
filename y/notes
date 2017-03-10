@@ -6,3 +6,5 @@ void *	arg;
 
 parser tout les arg et caster selon les flag detectes. 
 
+
+%   flags   minimum-field-width   .precision   length   Letter

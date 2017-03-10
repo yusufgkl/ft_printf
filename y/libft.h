@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/13 18:31:10 by ygokol            #+#    #+#             */
-/*   Updated: 2017/02/13 22:15:31 by ygokol           ###   ########.fr       */
+/*   Updated: 2016/11/30 03:45:53 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void				ft_putendl_fd(char *str, int fd);
 void				ft_putnbr(int n);
 void				ft_putnbr_fd(int n, int fd);
 void				ft_putstr(char *str);
-void				ft_putstr_fd(const char *str, int fd);
+void				ft_putstr_fd(char *str, int fd);
 char				*ft_strcat(char *s1, const char *s2);
 char				*ft_strchr(const char *s, int c);
 void				ft_strclr(char *s);
@@ -78,6 +78,12 @@ char				*ft_strtrim(const char *s);
 void				ft_swap(int *a, int *b);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
+t_list				*ft_lstnew(void const *content, size_t content_size);
+void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
+void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
+void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
+t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
+void				ft_lstadd(t_list **alst, t_list *new);
 
 int					ft_numlen(int nb);
 int					ft_charblank(char c);

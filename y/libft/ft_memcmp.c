@@ -1,40 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/08 18:07:58 by ygokol            #+#    #+#             */
-/*   Updated: 2017/02/13 22:14:39 by ygokol           ###   ########.fr       */
+/*   Created: 2016/11/11 22:26:29 by ygokol            #+#    #+#             */
+/*   Updated: 2016/11/26 20:42:54 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+int		ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	char	*p;
-	int		i;
-	int		neg;
-	int		nb;
+	unsigned char	*p1;
+	unsigned char	*p2;
+	size_t			i;
 
-	p = (char*)str;
 	i = 0;
-	neg = 1;
-	nb = 0;
-	while (ft_charblank(p[i]))
-		i++;
-	if (p[i] == '-' && ft_isdigit(p[i + 1]))
+	p1 = (unsigned char *)s1;
+	p2 = (unsigned char *)s2;
+	while (i != n)
 	{
-		neg = -1;
+		if (p1[i] != p2[i])
+			return (p1[i] - p2[i]);
 		i++;
 	}
-	if (p[i] == '+' && ft_isdigit(p[i + 1]))
-		i++;
-	if ((p[i] == '-' || p[i] == '+') && !ft_isdigit(p[i + 1]))
-		neg = 0;
-	while (ft_isdigit(p[i]))
-		nb = nb * 10 + p[i++] - '0';
-	return (nb * neg);
+	return (0);
 }

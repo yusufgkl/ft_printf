@@ -6,49 +6,71 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 17:54:40 by ygokol            #+#    #+#             */
-/*   Updated: 2017/01/15 20:03:07 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/10 18:35:33 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "ft_printf.h"
+#include "libft.h"
 
-int ft_printf(const char *format, ...)
+int		analyze(const char *format, va_list *ap)
 {
-	va_list		ap;
-	int i;
-	t_argmnt	*arg;
+	printf("\n__________ Analyze __________\n");
 	t_argmnt	*tmp;
-	if (!(arg = (t_argmnt *)malloc(sizeof(t_argmnt))))
-		return (-1);
-	tmp = arg;
-	va_start(ap, format);
-	i = 0;
 	int x = 0;
+	tmp = malloc(sizeof(t_argmnt));
 	while (format[x] != '\0')
 	{
-		if ((char)format[x] == '%')
+		if (format[x] == '%')
 		{
-			tmp->arg = va_arg(ap, void*);
-			tmp->type = (char)format[x + 1];
-			printf("type: |%c| nb: %d\n", tmp->type, i);
-			if (!(tmp->next = (t_argmnt *)malloc(sizeof(t_argmnt))))
-				return (-1);
-			tmp = tmp->next;
-			i++;
+			x++;
+			if (format[x] == '%')
+				ft_putchar('%');
+			parse_type(format[x], tmp);
+			parse_flags(format[x], tmp);
+			parse_modif(format, tmp);
+			parse_prec(format, tmp);
+			parse_width(format, tmp);
 		}
+		else
+			ft_putchar(format[x]);
 		x++;
 	}
-	printf("OK\n");
+	
+printf("\n|s_argmnt|\narg: %s \nflag: %c \nprec: %c\nmodif: %d\ntype: %c\n_ _ _ _ _ \n", (char*)tmp->arg, tmp->flag, tmp->prec
+		,(int)tmp->modif, tmp->type);
+	
 	tmp->next = NULL;
-	printf("nb d'arguments: %d\n", i);
-	va_end(ap);
 	return (0);
 }
 
-int main ()
+int		ft_printf(const char *format, ...)
 {
-	int i = ft_printf("ok%d %s %p %s", 1, 2 , 3 , "lol");
+	va_list		ap;
+	int i;
+	int count;
+	
+	va_start(ap, format);
+	i = 0;
+	count = 0;
+	while (format[i])
+	{
+		if (format[i] == '%' && ++i)
+		{
+			count += analyze(format, &ap);
+		}
+		else
+			i += write(1, &format[i], 1);
+	}
+	va_end(ap);
+	return (count + i);
+}
+
+int		main ()
+{
+	int i = ft_printf("ok%d %#2.5ls %p %s %%", 1, 2 , 3 , "lol");
+	//i = ft_printf("%", 1, 2 , 3 , "lol");
 	//printf("|retour : %d|\n", printf("{%ls}", L"\xF0\x9D\x84\x9E"));
 	printf("return: %d\n", i);
 	return (0);

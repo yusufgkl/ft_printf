@@ -1,40 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/08 18:07:58 by ygokol            #+#    #+#             */
-/*   Updated: 2017/02/13 22:14:39 by ygokol           ###   ########.fr       */
+/*   Created: 2016/11/03 12:38:35 by ygokol            #+#    #+#             */
+/*   Updated: 2016/11/28 11:39:34 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+size_t	ft_strlen(const char *str)
 {
-	char	*p;
-	int		i;
-	int		neg;
-	int		nb;
+	size_t i;
 
-	p = (char*)str;
 	i = 0;
-	neg = 1;
-	nb = 0;
-	while (ft_charblank(p[i]))
-		i++;
-	if (p[i] == '-' && ft_isdigit(p[i + 1]))
+	while (str[i] != '\0')
 	{
-		neg = -1;
-		i++;
+		i = i + 1;
 	}
-	if (p[i] == '+' && ft_isdigit(p[i + 1]))
-		i++;
-	if ((p[i] == '-' || p[i] == '+') && !ft_isdigit(p[i + 1]))
-		neg = 0;
-	while (ft_isdigit(p[i]))
-		nb = nb * 10 + p[i++] - '0';
-	return (nb * neg);
+	return (i);
 }

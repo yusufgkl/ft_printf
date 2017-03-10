@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/08 18:07:58 by ygokol            #+#    #+#             */
-/*   Updated: 2017/02/13 22:14:39 by ygokol           ###   ########.fr       */
+/*   Created: 2016/11/13 16:14:29 by ygokol            #+#    #+#             */
+/*   Updated: 2016/11/30 17:15:28 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
-int		ft_atoi(const char *str)
+size_t		ft_strlcat(char *s1, const char *s2, size_t n)
 {
-	char	*p;
-	int		i;
-	int		neg;
-	int		nb;
+	size_t check;
+	size_t min;
 
-	p = (char*)str;
-	i = 0;
-	neg = 1;
-	nb = 0;
-	while (ft_charblank(p[i]))
-		i++;
-	if (p[i] == '-' && ft_isdigit(p[i + 1]))
-	{
-		neg = -1;
-		i++;
-	}
-	if (p[i] == '+' && ft_isdigit(p[i + 1]))
-		i++;
-	if ((p[i] == '-' || p[i] == '+') && !ft_isdigit(p[i + 1]))
-		neg = 0;
-	while (ft_isdigit(p[i]))
-		nb = nb * 10 + p[i++] - '0';
-	return (nb * neg);
+	check = ((int)n - ft_strlen(s1) - 1);
+	if (n < ft_strlen(s1))
+		min = n;
+	else
+		min = ft_strlen(s1);
+	if ((int)check > 0)
+		ft_strncat(s1, s2, check);
+	return (ft_strlen(s2) + min);
 }

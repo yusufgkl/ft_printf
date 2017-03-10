@@ -1,40 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/08 18:07:58 by ygokol            #+#    #+#             */
-/*   Updated: 2017/02/13 22:14:39 by ygokol           ###   ########.fr       */
+/*   Created: 2016/11/08 19:09:18 by ygokol            #+#    #+#             */
+/*   Updated: 2016/11/30 04:53:18 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+char	*ft_strnew(size_t size)
 {
-	char	*p;
-	int		i;
-	int		neg;
-	int		nb;
+	char	*fresh;
 
-	p = (char*)str;
-	i = 0;
-	neg = 1;
-	nb = 0;
-	while (ft_charblank(p[i]))
-		i++;
-	if (p[i] == '-' && ft_isdigit(p[i + 1]))
-	{
-		neg = -1;
-		i++;
-	}
-	if (p[i] == '+' && ft_isdigit(p[i + 1]))
-		i++;
-	if ((p[i] == '-' || p[i] == '+') && !ft_isdigit(p[i + 1]))
-		neg = 0;
-	while (ft_isdigit(p[i]))
-		nb = nb * 10 + p[i++] - '0';
-	return (nb * neg);
+	if ((fresh = (char *)malloc(sizeof(char) * size + 1)) == NULL)
+		return (NULL);
+	ft_bzero(fresh, size + 1);
+	return (fresh);
 }

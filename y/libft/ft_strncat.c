@@ -1,40 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/08 18:07:58 by ygokol            #+#    #+#             */
-/*   Updated: 2017/02/13 22:14:39 by ygokol           ###   ########.fr       */
+/*   Created: 2016/11/12 17:15:36 by ygokol            #+#    #+#             */
+/*   Updated: 2016/11/29 16:25:50 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+char		*ft_strncat(char *s1, const char *s2, size_t n)
 {
-	char	*p;
-	int		i;
-	int		neg;
-	int		nb;
+	size_t i;
+	size_t j;
 
-	p = (char*)str;
 	i = 0;
-	neg = 1;
-	nb = 0;
-	while (ft_charblank(p[i]))
+	j = 0;
+	while (s1[i] != '\0')
 		i++;
-	if (p[i] == '-' && ft_isdigit(p[i + 1]))
+	while (s2[j] != '\0' && j < n)
 	{
-		neg = -1;
-		i++;
+		s1[i + j] = s2[j];
+		j++;
 	}
-	if (p[i] == '+' && ft_isdigit(p[i + 1]))
-		i++;
-	if ((p[i] == '-' || p[i] == '+') && !ft_isdigit(p[i + 1]))
-		neg = 0;
-	while (ft_isdigit(p[i]))
-		nb = nb * 10 + p[i++] - '0';
-	return (nb * neg);
+	s1[i + j] = '\0';
+	return (s1);
 }

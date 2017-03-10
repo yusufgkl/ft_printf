@@ -6,7 +6,7 @@
 #    By: ygokol <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/13 19:02:07 by ygokol            #+#    #+#              #
-#    Updated: 2017/02/13 22:18:16 by ygokol           ###   ########.fr        #
+#    Updated: 2017/01/10 20:49:56 by ygokol           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC = ./ft_atoi.c\
 	  ./ft_putnbr.c\
 	  ./ft_putnbr_fd.c\
 	  ./ft_putstr.c\
+	  ./ft_putstr_fd.c\
 	  ./ft_strcat.c\
 	  ./ft_strchr.c\
 	  ./ft_strclr.c\
@@ -70,6 +71,12 @@ SRC = ./ft_atoi.c\
 	  ./ft_thuglife.c\
 	  ./ft_strblank.c\
 	  ./ft_tablen.c\
+	  ./ft_lstadd.c\
+	  ./ft_lstdel.c\
+	  ./ft_lstdelone.c\
+	  ./ft_lstiter.c\
+	  ./ft_lstmap.c\
+	  ./ft_lstnew.c\
 
 OBJ = ./ft_atoi.o\
 	  ./ft_bzero.o\
@@ -95,6 +102,7 @@ OBJ = ./ft_atoi.o\
 	  ./ft_putnbr.o\
 	  ./ft_putnbr_fd.o\
 	  ./ft_putstr.o\
+	  ./ft_putstr_fd.o\
 	  ./ft_strcat.o\
 	  ./ft_strchr.o\
 	  ./ft_strclr.o\
@@ -129,6 +137,13 @@ OBJ = ./ft_atoi.o\
 	  ./ft_thuglife.o\
 	  ./ft_strblank.o\
 	  ./ft_tablen.o\
+	  ./ft_lstadd.o\
+	  ./ft_lstdel.o\
+	  ./ft_lstdelone.o\
+	  ./ft_lstiter.o\
+	  ./ft_lstmap.o\
+	  ./ft_lstnew.o\
+
 
 INC = ./libft.h
 

@@ -1,40 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/08 18:07:58 by ygokol            #+#    #+#             */
-/*   Updated: 2017/02/13 22:14:39 by ygokol           ###   ########.fr       */
+/*   Created: 2016/11/09 16:03:16 by ygokol            #+#    #+#             */
+/*   Updated: 2016/11/27 13:49:57 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+char	*ft_strjoin(char *s1, const char *s2)
 {
-	char	*p;
 	int		i;
-	int		neg;
-	int		nb;
+	int		j;
+	char	*join;
 
-	p = (char*)str;
-	i = 0;
-	neg = 1;
-	nb = 0;
-	while (ft_charblank(p[i]))
-		i++;
-	if (p[i] == '-' && ft_isdigit(p[i + 1]))
+	if (!s1 || !s2)
+		return (NULL);
+	j = 0;
+	i = ft_strlen(s1);
+	if ((join = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)))))
 	{
-		neg = -1;
-		i++;
+		ft_strcpy(join, s1);
+		while (s2[j] != '\0')
+		{
+			join[i] = s2[j];
+			i++;
+			j++;
+		}
+		join[i] = '\0';
+		return (join);
 	}
-	if (p[i] == '+' && ft_isdigit(p[i + 1]))
-		i++;
-	if ((p[i] == '-' || p[i] == '+') && !ft_isdigit(p[i + 1]))
-		neg = 0;
-	while (ft_isdigit(p[i]))
-		nb = nb * 10 + p[i++] - '0';
-	return (nb * neg);
+	else
+		return (NULL);
 }

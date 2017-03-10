@@ -1,40 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/08 18:07:58 by ygokol            #+#    #+#             */
-/*   Updated: 2017/02/13 22:14:39 by ygokol           ###   ########.fr       */
+/*   Created: 2016/11/30 03:02:19 by ygokol            #+#    #+#             */
+/*   Updated: 2016/11/30 03:02:28 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+char	*ft_strtrim(char const *s)
 {
-	char	*p;
-	int		i;
-	int		neg;
-	int		nb;
+	char	*str;
+	size_t	len;
 
-	p = (char*)str;
-	i = 0;
-	neg = 1;
-	nb = 0;
-	while (ft_charblank(p[i]))
-		i++;
-	if (p[i] == '-' && ft_isdigit(p[i + 1]))
+	if (!s)
+		return (NULL);
+	len = 0;
+	while (*s == ' ' || *s == '\t' || *s == '\n')
+		s += 1;
+	len = (ft_strlen(s));
+	while ((s[len - 1] == ' ' || s[len - 1] == '\t' || s[len - 1] == '\n')
+			&& len)
+		len--;
+	if (!(str = (char*)malloc(len + 1)))
+		return (NULL);
+	str[len] = '\0';
+	while (len)
 	{
-		neg = -1;
-		i++;
+		len--;
+		str[len] = s[len];
 	}
-	if (p[i] == '+' && ft_isdigit(p[i + 1]))
-		i++;
-	if ((p[i] == '-' || p[i] == '+') && !ft_isdigit(p[i + 1]))
-		neg = 0;
-	while (ft_isdigit(p[i]))
-		nb = nb * 10 + p[i++] - '0';
-	return (nb * neg);
+	return (str);
 }

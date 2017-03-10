@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/14 20:43:58 by ygokol            #+#    #+#             */
-/*   Updated: 2017/01/15 20:03:04 by ygokol           ###   ########.fr       */
+/*   Created: 2016/11/08 17:37:41 by ygokol            #+#    #+#             */
+/*   Updated: 2016/11/13 18:14:11 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILLIT_H
-# define FILLIT_H
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <unistd.h>
-# include <stdarg.h>
+#include "libft.h"
 
-typedef struct	s_argmnt
+int	ft_isalpha(int c)
 {
-	char				flag;
-	char				larg;
-	char				prec;
-	char				modif;
-	char				conv;
-	char				type;
-	void				*arg;
-	struct s_argmnt		*next;
-}				t_argmnt;
-#endif
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+	{
+		return (1);
+	}
+	else
+		return (0);
+}

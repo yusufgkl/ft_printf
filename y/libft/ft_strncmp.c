@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/08 18:07:58 by ygokol            #+#    #+#             */
-/*   Updated: 2017/02/13 22:14:39 by ygokol           ###   ########.fr       */
+/*   Created: 2016/11/07 18:28:37 by ygokol            #+#    #+#             */
+/*   Updated: 2016/11/30 03:03:32 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	char	*p;
-	int		i;
-	int		neg;
-	int		nb;
+	unsigned char	*s12;
+	unsigned char	*s22;
+	size_t			i;
 
-	p = (char*)str;
 	i = 0;
-	neg = 1;
-	nb = 0;
-	while (ft_charblank(p[i]))
+	s12 = (unsigned char *)s1;
+	s22 = (unsigned char *)s2;
+	if (!n)
+		return (0);
+	while (s12[i] == s22[i] && (i + 1) < n && s12[i] != '\0' && s22[i] != '\0')
 		i++;
-	if (p[i] == '-' && ft_isdigit(p[i + 1]))
-	{
-		neg = -1;
-		i++;
-	}
-	if (p[i] == '+' && ft_isdigit(p[i + 1]))
-		i++;
-	if ((p[i] == '-' || p[i] == '+') && !ft_isdigit(p[i + 1]))
-		neg = 0;
-	while (ft_isdigit(p[i]))
-		nb = nb * 10 + p[i++] - '0';
-	return (nb * neg);
+	return (s12[i] - s22[i]);
 }
