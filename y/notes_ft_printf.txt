@@ -11,4 +11,4 @@ static const t_conv g_conv[] = {
     { "p", p_arg },
     { "%", pct_arg }
 };
-
+wchar_t = char & 0xfff
