@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 21:37:00 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/11 22:27:23 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/11 23:16:50 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		parse_prec(const char *chr, t_argmnt *tmp)
 
 }
 
-int		parse_type(char* chr, t_argmnt *tmp, int i)
+void		parse_type(char* chr, t_argmnt *tmp, int i)
 {
 	int x;
 	x = i;
@@ -44,19 +44,18 @@ int		parse_type(char* chr, t_argmnt *tmp, int i)
 		x++;
 	}
 	x = 0;
-	return (1);
+	parse_modif(chr, tmp, i);
 }
 
-void		parse_modif(const char *chr, t_argmnt *tmp)
+void		parse_modif(const char *chr, t_argmnt *tmp, int x)
 {
-	int i;
-	i = 0;
+	int i = x;
 	tmp->modif = NULL;
 	while (chr[i] != ' ')
 	{
 		if (chr[i] == 'h')
 			tmp->modif = "h";
-		if (chr[i] == 'h' && chr[i + 1] == 'h')
+		if (chr[i] == 'h' && (chr[i + 1] == 'h' || chr[i - 1] == 'h'))
 			tmp->modif = "hh";
 		if (chr[i] == 'l')
 			tmp->modif = "l";

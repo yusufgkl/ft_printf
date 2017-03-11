@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 20:43:58 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/11 16:55:33 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/11 23:11:26 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct	s_argmnt
 
 void			parse_width(const char* chr, t_argmnt *tmp);
 void			parse_prec(const char* chr, t_argmnt *tmp);
-int			parse_type(char *chr, t_argmnt *tmp, int i);
-void			parse_modif(const char* chr, t_argmnt *tmp);
+void			parse_type(char *chr, t_argmnt *tmp, int i);
+void			parse_modif(const char* chr, t_argmnt *tmp, int i);
 void			parse_flags(char chr, t_argmnt *tmp);
 #endif
