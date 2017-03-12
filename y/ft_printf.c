@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 17:54:40 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/11 23:52:33 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/12 22:54:26 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 void new_node()
 {
-
+	printf("NEW NODE \n");
 }
 
 t_argmnt		*analyze(const char *format, va_list *ap, int x)
@@ -30,16 +30,14 @@ t_argmnt		*analyze(const char *format, va_list *ap, int x)
 		{
 			x++;
 			parse_type((char *)format, tmp, x);
-			parse_flags(format[x], tmp);
-			//parse_modif(format, tmp);
-			parse_prec(format, tmp);
-			parse_width(format, tmp);
 		}
 		else
+		{
 			x++;
+		}
 	}
 	
-	printf("\narg: %s \nflag: %c \nprec: %c\nmodif: %s\ntype: %c\n_ _ _ _ _ \n", (char *)tmp->arg, tmp->flag, tmp->prec, (char*)tmp->modif, tmp->type);
+	printf("\narg: %s \nflag: |%c| \nprec: %c\nmodif: %s\ntype: %c\nwidth: %d\n_ _ _ _ _ \n", (char *)tmp->arg, tmp->flag, tmp->prec, (char*)tmp->modif, tmp->type, tmp->width);
 	
 	if (format[x] != '\0')
 		new_node();
@@ -72,7 +70,7 @@ int		ft_printf(const char *format, ...)
 
 int		main ()
 {
-	int i = ft_printf("\nft_printf: ok123%ls %d %hhs \n", 1, 2 , "lol");
+	int i = ft_printf("\nft_printf: ok123%#9ls okddsf % d %hhs \n", 1, 2 , "lol");
 	int j = printf("\nprintf: ok123%d %d %s \n", 1, 2 , "lol");
 	//i = ft_printf("%", 1, 2 , 3 , "lol");
 	//printf("|retour : %d|\n", printf("{%ls}", L"\xF0\x9D\x84\x9E"));

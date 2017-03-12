@@ -6,14 +6,22 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 21:37:00 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/11 23:16:50 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/12 22:54:29 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void		parse_width(const char *chr, t_argmnt *tmp)
+void		parse_width(const char *chr, t_argmnt *tmp, int i)
 {
+	int x = i;
+	tmp->width = 0;
+	while (chr[x] != ' ' || ft_isdigit(chr[x]))
+	{
+		if (ft_isdigit(chr[x]) == 1)
+			tmp->width = ft_atoi(&chr[x]);
+			x++;
+	}
 }
 
 void		parse_prec(const char *chr, t_argmnt *tmp)
@@ -50,8 +58,9 @@ void		parse_type(char* chr, t_argmnt *tmp, int i)
 void		parse_modif(const char *chr, t_argmnt *tmp, int x)
 {
 	int i = x;
+
 	tmp->modif = NULL;
-	while (chr[i] != ' ')
+	while (chr[i] != ' ' && chr[i + 1] != '%')
 	{
 		if (chr[i] == 'h')
 			tmp->modif = "h";
@@ -67,20 +76,29 @@ void		parse_modif(const char *chr, t_argmnt *tmp, int x)
 			tmp->modif = "z";
 		i++;
 	}
+	i = 0;
+	parse_flags(chr, tmp, x);
 }
 
-void		parse_flags(char chr, t_argmnt *tmp)
+void		parse_flags(const char *chr, t_argmnt *tmp, int i)
 {
-	if (chr == '#')
-		tmp->flag = '#';
-	if (chr == '0')
-		tmp->flag = '0';
-	if (chr == '-')
-		tmp->flag = '-';
-	if (chr == '+')
-		tmp->flag = '+';
-	if (chr == ' ')
-		tmp->flag = ' ';
-	else
-		tmp->flag = '\0';
+	int j = i;
+
+	tmp->flag = '.';
+	while (chr[j] != ' ' || (chr[j] == ' ' && chr[j - 1] == '%'))
+	{
+		if (chr[j] == '#')
+			tmp->flag = '#';
+		if (chr[j] == '0')
+			tmp->flag = '0';
+		if (chr[j] == '-')
+			tmp->flag = '-';
+		if (chr[j] == '+')
+			tmp->flag = '+';
+		if (chr[j] == ' ')
+			tmp->flag = ' ';
+		j++;
+	}
+	j = 0;
+	parse_width(chr, tmp, i);
 }
