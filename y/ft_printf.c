@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 17:54:40 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/13 16:23:46 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/13 19:03:57 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@
 
 void new_node()
 {
-	printf("NEW NODE \n");
+	//printf("NEW NODE \n");
 }
 
-t_argmnt		*analyze(const char *format, va_list ap, int x)
+char		*analyze(const char *format, va_list ap, int x)
 {
-	printf("\n__________ Analyze __________\n");
+	//printf("\n__________ Analyze __________\n");
 	t_argmnt	*tmp;
+	
 	tmp = malloc(sizeof(t_argmnt));
 	while (format[x] != '\0' && format[x] != ' ')
 	{
@@ -34,34 +35,34 @@ t_argmnt		*analyze(const char *format, va_list ap, int x)
 		else
 			x++;
 	}
-	
-	printf("\narg: %s \nflag: |%c| \nprec: %d\nmodif: %s\ntype: %c\nwidth: %d\n_ _ _ _ _ \n", tmp->arg, tmp->flag, tmp->prec, (char*)tmp->modif, tmp->type, tmp->width);
-	
+	//printf("\narg: %s \nflag: |%c| \nprec: %d\nmodif: %s\ntype: %c\nwidth: %d\n_ _ _ _ _ \n", tmp->arg, tmp->flag, tmp->prec, (char*)tmp->modif, tmp->type, tmp->width);
 	if (format[x] != '\0')
 		new_node();
-	return (tmp);
+	return (tmp->arg);
 }
 
 int		ft_printf(const char *format, ...)
 {
 	va_list		ap;
 	int i;
-	//t_argmnt *args;
+	int flag = 0;
+	t_argmnt *args;
 
 	va_start(ap, format);
 	i = 0;
 	while (format[i])
 	{
-		if (format[i] == '%')
+		if (format[i] == '%' && flag == 0)
 		{
-			analyze(format, ap, i);
-			i++;
+			flag = 1;
+			ft_putstr(analyze(format, ap, i));
 		}
-		else
-		{
-			printf("_- ");
+		if (format[i] == ' ' && format[i - 1] != '%')
+			flag = 0;
+		if (flag == 0 && format[i] != '%')
 			i += write(1,&format[i],1);
-		}
+		else
+			i++;
 	}
 	va_end(ap);
 	return (i);
@@ -69,8 +70,9 @@ int		ft_printf(const char *format, ...)
 
 int		main ()
 {
-	int i = ft_printf("\nft_printf: ok123%4.2d okddsf % d %hhS \n", 123, 2 , "lol");
-	int j = printf("\nprintf: ok123%d %d %s \n", 1, 2 , "lol");
+	int i = ft_printf("\nft_printf:	yusuf %d gokol %d %s \n", 123, 2 , "lol");
+	printf("\n");
+	int j = printf("\nprintf:		yusuf %d gokol %d %s \n", 123, 2 , "lol");
 	//i = ft_printf("%", 1, 2 , 3 , "lol");
 	//printf("|retour : %d|\n", printf("{%ls}", L"\xF0\x9D\x84\x9E"));
 	printf("return ft_printf: %d\n", i);
