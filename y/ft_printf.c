@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 17:54:40 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/12 22:54:26 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/13 16:23:46 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void new_node()
 	printf("NEW NODE \n");
 }
 
-t_argmnt		*analyze(const char *format, va_list *ap, int x)
+t_argmnt		*analyze(const char *format, va_list ap, int x)
 {
 	printf("\n__________ Analyze __________\n");
 	t_argmnt	*tmp;
@@ -29,15 +29,13 @@ t_argmnt		*analyze(const char *format, va_list *ap, int x)
 		if (format[x] == '%')
 		{
 			x++;
-			parse_type((char *)format, tmp, x);
+			parse_type(format, tmp, x, ap);
 		}
 		else
-		{
 			x++;
-		}
 	}
 	
-	printf("\narg: %s \nflag: |%c| \nprec: %c\nmodif: %s\ntype: %c\nwidth: %d\n_ _ _ _ _ \n", (char *)tmp->arg, tmp->flag, tmp->prec, (char*)tmp->modif, tmp->type, tmp->width);
+	printf("\narg: %s \nflag: |%c| \nprec: %d\nmodif: %s\ntype: %c\nwidth: %d\n_ _ _ _ _ \n", tmp->arg, tmp->flag, tmp->prec, (char*)tmp->modif, tmp->type, tmp->width);
 	
 	if (format[x] != '\0')
 		new_node();
@@ -48,21 +46,22 @@ int		ft_printf(const char *format, ...)
 {
 	va_list		ap;
 	int i;
-	int count;
-	t_argmnt *args;
+	//t_argmnt *args;
 
 	va_start(ap, format);
 	i = 0;
-	count = 0;
 	while (format[i])
 	{
 		if (format[i] == '%')
 		{
-			args = analyze(format, &ap, i);
+			analyze(format, ap, i);
 			i++;
 		}
 		else
+		{
+			printf("_- ");
 			i += write(1,&format[i],1);
+		}
 	}
 	va_end(ap);
 	return (i);
@@ -70,7 +69,7 @@ int		ft_printf(const char *format, ...)
 
 int		main ()
 {
-	int i = ft_printf("\nft_printf: ok123%#9ls okddsf % d %hhs \n", 1, 2 , "lol");
+	int i = ft_printf("\nft_printf: ok123%4.2d okddsf % d %hhS \n", 123, 2 , "lol");
 	int j = printf("\nprintf: ok123%d %d %s \n", 1, 2 , "lol");
 	//i = ft_printf("%", 1, 2 , 3 , "lol");
 	//printf("|retour : %d|\n", printf("{%ls}", L"\xF0\x9D\x84\x9E"));

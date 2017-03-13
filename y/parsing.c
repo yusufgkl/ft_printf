@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 21:37:00 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/12 22:54:29 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/13 16:23:43 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,47 @@ void		parse_width(const char *chr, t_argmnt *tmp, int i)
 {
 	int x = i;
 	tmp->width = 0;
-	while (chr[x] != ' ' || ft_isdigit(chr[x]))
+	while ((chr[x] != ' ' || ft_isdigit(chr[x])) && chr[x - 1] != '.')
 	{
 		if (ft_isdigit(chr[x]) == 1)
 			tmp->width = ft_atoi(&chr[x]);
-			x++;
+		x++;
 	}
+	x = 0;
+	parse_prec(chr, tmp, i);
 }
 
-void		parse_prec(const char *chr, t_argmnt *tmp)
+void		parse_prec(const char *chr, t_argmnt *tmp, int i)
 {
+	int x = i;
+	tmp->prec = 0;
+	while ((chr[x] != ' ' || ft_isdigit(chr[x])))
+	{
+		if (ft_isdigit(chr[x]) == 1 && chr[x - 1] == '.')
+			tmp->prec = (int)ft_atoi(&chr[x]);
+		x++;
+	}
+	x = 0;
+}
+
+void		parse_arg_type(t_argmnt *tmp, va_list ap)
+{
+	if (tmp->type == 's')
+		tmp->arg = va_arg(ap, char*);
+	if (tmp->type == 'S')
+		tmp->arg = va_arg(ap, char*);
+//	if (chr[x] == 'p')
+//		tmp->type= 'p';
+	if (tmp->type == 'd')
+		tmp->arg = ft_itoa(va_arg(ap, int));
+//	if (chr[x] == 'D')
+//		tmp->type = 'D';
+//	if (chr[x] == 'i')
+//		tmp->type = 'i';
 
 }
 
-void		parse_type(char* chr, t_argmnt *tmp, int i)
+void		parse_type(const char* chr, t_argmnt *tmp, int i, va_list ap)
 {
 	int x;
 	x = i;
@@ -52,6 +79,7 @@ void		parse_type(char* chr, t_argmnt *tmp, int i)
 		x++;
 	}
 	x = 0;
+	parse_arg_type(tmp, ap);
 	parse_modif(chr, tmp, i);
 }
 
