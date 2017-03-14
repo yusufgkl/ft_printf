@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 21:37:00 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/13 22:41:12 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/14 20:49:43 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void		parse_arg_type(t_argmnt *tmp, va_list ap)
 		tmp->arg = va_arg(ap, char*);
 	//if (tmp->type == 'S')
 		//tmp->arg = va_arg(ap, char*);
-	//if (tmp->type == 'p')
-		//tmp->type= conv_p(va_arg(ap, void*));
+	if (tmp->type == 'p')
+		tmp->arg = itoabase((int)(va_arg(ap, void*)), 16);
 	if (tmp->type == 'd' || tmp->type == 'i')
 		tmp->arg = ft_itoa(va_arg(ap, int));
 }
