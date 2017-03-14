@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 20:43:58 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/14 20:49:34 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/14 22:32:24 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,5 @@ void			parse_type(const char *chr, t_argmnt *tmp, int i, va_list ap);
 void			parse_modif(const char* chr, t_argmnt *tmp, int i);
 void			parse_flags(const char* chr, t_argmnt *tmp, int i);
 char			*itoabase(int num, int base);
+char			*strtoup(char *str);
 #endif

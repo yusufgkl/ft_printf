@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 20:00:55 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/14 20:46:23 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/14 22:31:47 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,21 @@ char* itoabase(int num, int base)
 	str = reverse(str);
 
 	return str;
+}
+
+char *strtoup(char *str)
+{
+	int i;
+
+	i = 0;
+	if (!str)
+		return (NULL);
+	else
+		while(str[i] != '\0')
+		{
+			if ((int)str[i] <= 122 && (int)str[i] >= 97 && !ft_isdigit(str[i]))
+				str[i] = ft_toupper((int)str[i]);
+			i++;
+		}
+	return (str);
 }

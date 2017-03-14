@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 21:37:00 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/14 20:49:43 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/14 23:13:42 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,23 @@ void		parse_arg_type(t_argmnt *tmp, va_list ap)
 	if (tmp->type == 's')
 		tmp->arg = va_arg(ap, char*);
 	//if (tmp->type == 'S')
-		//tmp->arg = va_arg(ap, char*);
+	//tmp->arg = va_arg(ap, char*);
 	if (tmp->type == 'p')
+		tmp->arg = ft_strjoin("0x", itoabase((int)(va_arg(ap, void*)), 16));
+	if (tmp->type == 'x')
 		tmp->arg = itoabase((int)(va_arg(ap, void*)), 16);
-	if (tmp->type == 'd' || tmp->type == 'i')
+	if (tmp->type == 'X')
+		tmp->arg = strtoup(itoabase((int)(va_arg(ap, void*)), 16));
+	if (tmp->type == 'd' || tmp->type == 'i' || tmp->type == 'u')
 		tmp->arg = ft_itoa(va_arg(ap, int));
+	if (tmp->type == 'o')
+		tmp->arg = itoabase((int)(va_arg(ap, void*)), 8);
+	if (tmp->type == 'O')
+		tmp->arg = itoabase((int)(va_arg(ap, void*)), 6);
+	if (tmp->type == 'b')
+		tmp->arg = itoabase((int)(va_arg(ap, void*)), 2);
+
+
 }
 
 void		parse_type2(char chr, t_argmnt *tmp)
@@ -73,6 +85,8 @@ void		parse_type2(char chr, t_argmnt *tmp)
 		tmp->type = 'C';
 	if (chr == '%')
 		tmp->type = '%';
+	if (chr == 'b')
+		tmp->type = 'b';
 }
 void		parse_type(const char* chr, t_argmnt *tmp, int i, va_list ap)
 {
