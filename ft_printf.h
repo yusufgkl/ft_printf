@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 20:43:58 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/15 15:19:44 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/15 15:57:05 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,5 @@ long int conv_o(int n);
 
 
 void flag_hashtg(t_argmnt *tmp);
+void flag_zero(t_argmnt *tmp);
 #endif

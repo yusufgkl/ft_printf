@@ -6,11 +6,45 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 21:37:00 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/15 15:28:05 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/15 16:19:49 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+void parse_arg_flag(t_argmnt *tmp)
+{
+	//printf("flags: %c\n", tmp->flag);
+	if (tmp->flag == '#')
+		flag_hashtg(tmp);
+	if (tmp->flag == '0')
+		flag_zero(tmp);
+}
+
+void		parse_arg_type(t_argmnt *tmp, va_list ap)
+{
+	if (tmp->type == 's')
+		tmp->arg = va_arg(ap, char*);
+	//if (tmp->type == 'S')
+	//tmp->arg = va_arg(ap, char*);
+	if (tmp->type == 'p')
+		tmp->arg = ft_strjoin("0x", itoabase((int)(va_arg(ap, void*)), 16));
+	if (tmp->type == 'x')
+		tmp->arg = itoabase((int)(va_arg(ap, void*)), 16);
+	if (tmp->type == 'X')
+		tmp->arg = strtoup(itoabase((int)(va_arg(ap, void*)), 16));
+	if (tmp->type == 'd' || tmp->type == 'i' || tmp->type == 'u' || tmp->type == 'D')
+		tmp->arg = ft_itoa(va_arg(ap, int));
+	if (tmp->type == 'o')
+		tmp->arg = ft_itoa((int)conv_o((int)(va_arg(ap, void*))));
+	if (tmp->type == 'O')
+		tmp->arg = itoabase((int)(va_arg(ap, void*)), 6);
+	if (tmp->type == 'b')
+		tmp->arg = itoabase((int)(va_arg(ap, void*)), 2);
+	if (tmp->flag != '|')
+		parse_arg_flag(tmp);
+}
+
 
 void		parse_width(const char *chr, t_argmnt *tmp, int i)
 {
@@ -37,39 +71,6 @@ void		parse_prec(const char *chr, t_argmnt *tmp, int i)
 		x++;
 	}
 	x = 0;
-}
-
-void parse_arg_flag(t_argmnt *tmp)
-{
-	if (tmp->flag != '|')
-		flag_hashtg(tmp);
-	else
-		printf("flag: %c \n", tmp->flag);
-}
-
-
-void		parse_arg_type(t_argmnt *tmp, va_list ap)
-{
-	if (tmp->type == 's')
-		tmp->arg = va_arg(ap, char*);
-	//if (tmp->type == 'S')
-	//tmp->arg = va_arg(ap, char*);
-	if (tmp->type == 'p')
-		tmp->arg = ft_strjoin("0x", itoabase((int)(va_arg(ap, void*)), 16));
-	if (tmp->type == 'x')
-		tmp->arg = itoabase((int)(va_arg(ap, void*)), 16);
-	if (tmp->type == 'X')
-		tmp->arg = strtoup(itoabase((int)(va_arg(ap, void*)), 16));
-	if (tmp->type == 'd' || tmp->type == 'i' || tmp->type == 'u' || tmp->type == 'D')
-		tmp->arg = ft_itoa(va_arg(ap, int));
-	if (tmp->type == 'o')
-		tmp->arg = ft_itoa((int)conv_o((int)(va_arg(ap, void*))));
-	if (tmp->type == 'O')
-		tmp->arg = itoabase((int)(va_arg(ap, void*)), 6);
-	if (tmp->type == 'b')
-		tmp->arg = itoabase((int)(va_arg(ap, void*)), 2);
-	parse_arg_flag(tmp);
-
 }
 
 void		parse_type2(char chr, t_argmnt *tmp)
@@ -121,8 +122,8 @@ void		parse_type(const char* chr, t_argmnt *tmp, int i, va_list ap)
 		x++;
 	}
 	x = 0;
-	parse_arg_type(tmp, ap);
 	parse_modif(chr, tmp, i);
+	parse_arg_type(tmp, ap);
 }
 
 void		parse_modif(const char *chr, t_argmnt *tmp, int x)

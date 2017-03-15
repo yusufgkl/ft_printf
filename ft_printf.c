@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 17:54:40 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/15 15:28:03 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/15 16:19:47 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ int		ft_printf(const char *format, ...)
 
 int		main ()
 {
-	int i = ft_printf("\nft_printf:	yusuf %d gokol %d %s %#X\n", 123, 2 , "lol", 123456789);
+	int i = ft_printf("\nft_printf:	yusuf %07d gokol %04d %s %#x\n", 123, 2 , "lol", 123456789);
 	printf("\n");
-	int j = printf("\nprintf:		yusuf %d gokol %d %s %#X\n", 123, 2 , "lol", 123456789);
+	int j = printf("\nprintf:		yusuf %07d gokol %04d %s %#x\n", 123, 2 , "lol", 123456789);
 	//i = ft_printf("%", 1, 2 , 3 , "lol");
 	//printf("|retour : %d|\n", printf("{%ls}", L"\xF0\x9D\x84\x9E"));
 	printf("return ft_printf: %d\n", i);
