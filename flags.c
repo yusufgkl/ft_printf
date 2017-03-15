@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/15 15:12:06 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/15 16:19:45 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/15 20:07:58 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,19 @@ void flag_hashtg(t_argmnt *tmp)
 		tmp->arg = ft_strjoin("0", tmp->arg);
 }
 
-char *fill_zero(int i)
+char *fill_char(int i, char c)
 {
 	char *zero;
 	int x;
 
 	x = 0;
-	zero = (char *)malloc(sizeof(char) * (i + 1));
+	zero = (char *)malloc(sizeof(char) * (i));
 	while (x != i)
 	{
-		zero[x] = '0';
+		zero[x] = c;
 		x++;
 	}
+	free(zero);
 	return (zero);
 }
 
@@ -45,6 +46,6 @@ void flag_zero(t_argmnt *tmp)
 	{
 		i = (tmp->width - (ft_strlen(tmp->arg)));
 		if (i > 0)
-			tmp->arg = ft_strjoin(fill_zero(i), tmp->arg);
+			tmp->arg = ft_strjoin(fill_char(i, '0'), tmp->arg);
 	}
 }

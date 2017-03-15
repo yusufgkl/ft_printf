@@ -6,19 +6,32 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 21:37:00 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/15 16:19:49 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/15 20:07:56 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+
+void parse_arg_modif(t_argmnt *tmp)
+{
+	char typeu;
+
+	typeu = tmp->type;
+	if (typeu == 'd' || typeu == 'i' || typeu == 'o' || typeu == 'u' || \
+			typeu == 'x' || typeu == 'X')
+		printf("modif ok");
+}
+
 void parse_arg_flag(t_argmnt *tmp)
 {
-	//printf("flags: %c\n", tmp->flag);
 	if (tmp->flag == '#')
 		flag_hashtg(tmp);
 	if (tmp->flag == '0')
 		flag_zero(tmp);
+	if (tmp->flag == ' ')
+		tmp->arg = ft_strjoin(fill_char(tmp->width, ' '), tmp->arg);
+	//parse_arg_modif(tmp);
 }
 
 void		parse_arg_type(t_argmnt *tmp, va_list ap)
@@ -50,7 +63,9 @@ void		parse_width(const char *chr, t_argmnt *tmp, int i)
 {
 	int x = i;
 	tmp->width = 0;
-	while ((chr[x] != ' ' || ft_isdigit(chr[x])) && chr[x - 1] != '.')
+	if (chr[x] == ' ')
+		x++;
+	while (ft_isdigit(chr[x]) && (chr[x - 1] != '.' || (chr[x - 1] == tmp->flag)))
 	{
 		if (ft_isdigit(chr[x]) == 1)
 			tmp->width = ft_atoi(&chr[x]);
