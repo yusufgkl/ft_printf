@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 21:37:00 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/15 14:51:51 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/15 15:28:05 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@ void		parse_prec(const char *chr, t_argmnt *tmp, int i)
 	x = 0;
 }
 
+void parse_arg_flag(t_argmnt *tmp)
+{
+	if (tmp->flag != '|')
+		flag_hashtg(tmp);
+	else
+		printf("flag: %c \n", tmp->flag);
+}
+
+
 void		parse_arg_type(t_argmnt *tmp, va_list ap)
 {
 	if (tmp->type == 's')
@@ -59,7 +68,7 @@ void		parse_arg_type(t_argmnt *tmp, va_list ap)
 		tmp->arg = itoabase((int)(va_arg(ap, void*)), 6);
 	if (tmp->type == 'b')
 		tmp->arg = itoabase((int)(va_arg(ap, void*)), 2);
-
+	parse_arg_flag(tmp);
 
 }
 
@@ -145,7 +154,7 @@ void		parse_flags(const char *chr, t_argmnt *tmp, int i)
 {
 	int j = i;
 
-	tmp->flag = '.';
+	tmp->flag = '|';
 	while (chr[j] != ' ' || (chr[j] == ' ' && chr[j - 1] == '%'))
 	{
 		if (chr[j] == '#')

@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 20:43:58 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/15 14:51:21 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/15 15:19:44 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,8 @@ void			parse_flags(const char* chr, t_argmnt *tmp, int i);
 char			*itoabase(int num, int base);
 char			*strtoup(char *str);
 long int conv_o(int n);
+
+
+
+void flag_hashtg(t_argmnt *tmp);
 #endif
