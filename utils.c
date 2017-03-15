@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 20:00:55 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/14 22:31:47 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/15 14:51:03 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,21 @@ char	*reverse(char *str)
 		j--;
 	}
 	return(str);
+}
+
+long int conv_o(int n)
+{
+	long int n1,m=1,rem,ans=0;
+
+	n1=n;
+	while(n > 0)
+	{
+		rem=n%8;
+		ans=(rem*m)+ans;
+		n=n/8;
+		m=m*10;
+	}
+	return (ans);
 }
 
 char* itoabase(int num, int base)
