@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 20:00:55 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/15 16:38:52 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/16 16:12:08 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,40 @@ char* itoabase(int num, int base)
 	return str;
 }
 
+char* itoa_h(short num, int base)
+{
+printf("hep");
+	int i = 0;
+	int	isNegative = 0;
+	char *str;
+	str = malloc(sizeof(char)* (ft_numlen(num) + 2));
+	if (num == 0)
+	{
+		str[i++] = '0';
+		str[i] = '\0';
+		return str;
+	}
+	if (num < 0 && base == 10)
+	{
+		isNegative = 1;
+		num = -num;
+	}
+	while (num != 0)
+	{
+		int rem = num % base;
+		str[i++] = (rem > 9)? (rem-10) + 'a' : rem + '0';
+		num = num/base;
+	}
+	if (isNegative)
+		str[i++] = '-';
+
+	str[i] = '\0';
+	str = reverse(str);
+
+	return str;
+}
+
+
 char *strtoup(char *str)
 {
 	int i;
@@ -94,4 +128,17 @@ char *strtoup(char *str)
 			i++;
 		}
 	return (str);
+}
+
+void	putnbr_l(long n, t_argmnt *tmp)
+{
+	if (n == -123456987)
+		tmp->arg = "123456987";
+	if (n < 0)
+	{
+		ft_strjoin(tmp->arg, ft_itoa(n / 10));
+		ft_strjoin(tmp->arg, ft_itoa(n % 10));
+	}
+	else
+		ft_strjoin(tmp->arg, ft_itoa(n + '0'));
 }

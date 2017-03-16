@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 21:37:00 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/16 01:12:07 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/16 16:12:10 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void parse_arg_modif(t_argmnt *tmp)
 	char typeu;
 
 	typeu = tmp->type;
-	//if (ft_strcmp(tmp->modif,"h") == 0)
-		//tmp->arg = (short)tmp->arg;
 }
 
 void parse_arg_flag(t_argmnt *tmp)
@@ -45,8 +43,10 @@ void		parse_arg_type(t_argmnt *tmp, va_list ap)
 		tmp->arg = itoabase((int)(va_arg(ap, void*)), 16);
 	if (tmp->type == 'X')
 		tmp->arg = strtoup(itoabase((int)(va_arg(ap, void*)), 16));
-	if (tmp->type == 'd' || tmp->type == 'i' || tmp->type == 'u' || tmp->type == 'D')
+	if ((tmp->type == 'd' && tmp->modif == NULL) || tmp->type == 'i')
 		tmp->arg = ft_itoa(va_arg(ap, int));
+	if (tmp->type == 'd' && tmp->modif == "h")
+		tmp->arg = itoa_h((short)va_arg(ap, int), 10);
 	if (tmp->type == 'o')
 		tmp->arg = ft_itoa((int)conv_o((int)(va_arg(ap, void*))));
 	if (tmp->type == 'O')
