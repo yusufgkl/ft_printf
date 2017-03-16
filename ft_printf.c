@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 17:54:40 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/15 20:08:00 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/16 01:12:04 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,11 @@ int		ft_printf(const char *format, ...)
 
 int		main ()
 {
-	int i = ft_printf("\nft_printf:	yusuf %07.2d gokol % 4.2d %s %#x\n", 123, 2 , "lol", 123456789);
+	int i = ft_printf("\nft_printf:	yusuf %07.2d gokol %d %s %#x\n", 123, 2 , "lol", 123456789);
 	printf("\n");
-	int j = printf("\nprintf:		yusuf %07d gokol  %4d %s %#x\n", 123, 2 , "lol", 123456789);
+	int j = printf("\nprintf:		yusuf %.2f gokol  %d %s %#x\n", 123.123456, 2 , "lol", 123456789);
 	//i = ft_printf("%", 1, 2 , 3 , "lol");
-	//printf("|retour : %d|\n", printf("{%ls}", L"\xF0\x9D\x84\x9E"));
+	//ft_printf("|retour : %d|\n", printf("{%ls}", L"\xF0\x9D\x84\x9E"));
 	printf("return ft_printf: %d\n", i);
 	printf("return printf	: %d\n", j);
 	return (0);

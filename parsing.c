@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 21:37:00 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/15 20:07:56 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/16 01:12:07 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@ void parse_arg_modif(t_argmnt *tmp)
 	char typeu;
 
 	typeu = tmp->type;
-	if (typeu == 'd' || typeu == 'i' || typeu == 'o' || typeu == 'u' || \
-			typeu == 'x' || typeu == 'X')
-		printf("modif ok");
+	//if (ft_strcmp(tmp->modif,"h") == 0)
+		//tmp->arg = (short)tmp->arg;
 }
 
 void parse_arg_flag(t_argmnt *tmp)
