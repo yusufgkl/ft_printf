@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 17:54:40 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/16 16:12:06 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/16 21:42:48 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int		main ()
 	printf("return ft_printf: %d\n", i);
 	printf("return printf	: %d\n", j);
 	ft_printf("long: %hd\n",123);
-	printf(" long: %s\n","༼ つ ◕_◕ ༽つAMENO༼ つ ◕_◕ ༽つ");
+
+	ft_printf(" \n \n wesh aboudjem: %s \n \n","༼ つ ◕_◕ ༽つAMENO༼ つ ◕_◕ ༽つ 繁体字 / 繁體字");
 	return (0);
 }
