@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 21:37:00 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/17 20:41:07 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/17 21:07:20 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,23 @@ void		parse_arg_type(t_argmnt *tmp, va_list ap)
 		tmp->arg = va_arg(ap, char*);
 	//if (tmp->type == 'S')
 	//tmp->arg = va_arg(ap, char*);
-	else if (tmp-> type == 'c')
+	if (tmp-> type == 'c')
 		tmp->arg = ctostr((char)va_arg(ap, char*));
-	else if (tmp->type == 'p')
+	if (tmp->type == 'p')
 		tmp->arg = ft_strjoin("0x", itoabase((int)(va_arg(ap, void*)), 16));
-	else if (tmp->type == 'x')
+	if (tmp->type == 'x')
 		tmp->arg = itoabase((int)(va_arg(ap, void*)), 16);
-	else if (tmp->type == 'X')
+	if (tmp->type == 'X')
 		tmp->arg = strtoup(itoabase((int)(va_arg(ap, void*)), 16));
-	else if ((tmp->type == 'd' && tmp->modif == NULL) || tmp->type == 'i')
+	if ((tmp->type == 'd' && tmp->modif == NULL) || tmp->type == 'i')
 		tmp->arg = ft_itoa(va_arg(ap, int));
-	else if (tmp->type == 'o')
+	if (tmp->type == 'o')
 		tmp->arg = ft_itoa((int)conv_o((int)(va_arg(ap, void*))));
-	else if (tmp->type == 'O')
+	if (tmp->type == 'O')
 		tmp->arg = itoabase((int)(va_arg(ap, void*)), 6);
-	else if (tmp->type == 'b')
+	if (tmp->type == 'b')
 		tmp->arg = itoabase((int)(va_arg(ap, void*)), 2);
-	else if (tmp->flag != '|')
+	if (tmp->flag != '|')
 		parse_arg_flag(tmp);
 }
 
@@ -106,7 +106,7 @@ void		parse_type2(char chr, t_argmnt *tmp)
 		tmp->type = 'X';
 	if (chr == 'c')
 		tmp->type = 'c';
-	if (chr == 'c')
+	if (chr == 'C')
 		tmp->type = 'C';
 	if (chr == '%')
 		tmp->type = '%';
