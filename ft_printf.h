@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 20:43:58 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/16 15:18:30 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/17 20:40:25 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,7 @@ void flag_hashtg(t_argmnt *tmp);
 void flag_zero(t_argmnt *tmp);
 char *fill_char(int i, char c);
 void	putnbr_l(long n, t_argmnt *tmp);
+void modif_di(t_argmnt *tmp, va_list ap);
+char *ctostr(char c);
+
 #endif

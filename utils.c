@@ -6,12 +6,22 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 20:00:55 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/16 16:12:08 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/17 20:40:00 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_printf.h"
+
+char *ctostr(char c)
+{
+	char *str;
+	
+	str = (char*)malloc(sizeof(char) * 2);
+	str[0] = c;
+	str[1] = '\0';
+	return (str);
+}
 
 char	*reverse(char *str)
 {
