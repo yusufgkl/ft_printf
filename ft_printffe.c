@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 17:54:40 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/17 21:07:18 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/17 21:24:51 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int		main ()
 	//ft_printf("|retour : %d|\n", printf("{%ls}", L"\xF0\x9D\x84\x9E"));
 	printf("return ft_printf: %d\n", i);
 	printf("return printf	: %d\n", j);
-	ft_printf("long: %hd\n",123);
+	ft_printf("test d: %d\n",123);
 
 	ft_printf(" \n \n %S \n \n","  😊 Ȁ❤ ☀ ☆ ☂ ☻ ♞ ☯ ☭ ☢ € → ༼ つ ◕_◕ ༽つAMENO༼ つ ◕_◕ ༽つ 繁体字 / 繁體字 ( ͡° ͜ʖ ͡°)");
 	
