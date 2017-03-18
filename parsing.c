@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 21:37:00 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/17 21:24:53 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/18 17:50:54 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,28 @@ void		parse_arg_type(t_argmnt *tmp, va_list ap)
 	//parse_arg_modif(tmp, ap);
 	if (tmp->type == 's' || tmp->type == 'S')
 		tmp->arg = va_arg(ap, char*);
-	//if (tmp->type == 'S')
-	//tmp->arg = va_arg(ap, char*);
+	if (tmp->type == 'u')
+		tmp->arg = itoabase((unsigned int)va_arg(ap, char*), 10);
+	if (tmp->type == 'U')
+		tmp->arg = itoabase((unsigned int)va_arg(ap, long), 10);
+	if (tmp->type == 'D')
+		tmp->arg = itoabase((signed int)va_arg(ap, long), 10);
 	if (tmp-> type == 'c')
 		tmp->arg = ctostr((char)va_arg(ap, char*));
+	if (tmp-> type == 'C')
+		tmp->arg = ctostr((wchar_t)va_arg(ap, char*));
 	if (tmp->type == 'p')
 		tmp->arg = ft_strjoin("0x", itoabase((int)(va_arg(ap, void*)), 16));
 	if (tmp->type == 'x')
 		tmp->arg = itoabase((int)(va_arg(ap, void*)), 16);
 	if (tmp->type == 'X')
 		tmp->arg = strtoup(itoabase((int)(va_arg(ap, void*)), 16));
-	if ((tmp->type == 'd' && tmp->modif == NULL) || tmp->type == 'i')
+	if ((tmp->type == 'd' || tmp->type == 'i') && tmp->modif == NULL)
 		tmp->arg = ft_itoa(va_arg(ap, int));
 	if (tmp->type == 'o')
 		tmp->arg = ft_itoa((int)conv_o((int)(va_arg(ap, void*))));
 	if (tmp->type == 'O')
-		tmp->arg = itoabase((int)(va_arg(ap, void*)), 6);
+		tmp->arg = ft_itoa((int)conv_o((int)(va_arg(ap, long))));
 	if (tmp->type == 'b')
 		tmp->arg = itoabase((int)(va_arg(ap, void*)), 2);
 	if (tmp->flag != '|')
@@ -112,6 +118,9 @@ void		parse_type2(char chr, t_argmnt *tmp)
 		tmp->type = '%';
 	if (chr == 'b')
 		tmp->type = 'b';
+	if (chr == 'U')
+		tmp->type = 'U';
+
 }
 void		parse_type(const char* chr, t_argmnt *tmp, int i, va_list ap)
 {

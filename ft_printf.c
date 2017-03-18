@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 17:54:40 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/17 15:24:41 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/18 17:42:25 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,9 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-void new_node()
-{
-	//printf("NEW NODE \n");
-}
-
 int	is_percent(const char *str, int x)
 {
-	if (str[x] == '%' && str[x - 1] == '%' && str[x++] == ' ')
+	if (str[x] == '%' && str[x - 1] == '%')
 		return (1);
 	else
 		return (0);
@@ -44,8 +39,6 @@ char		*analyze(const char *format, va_list ap, int x)
 			x++;
 	}
 	//printf("\narg: %s \nflag: |%c| \nprec: %d\nmodif: %s\ntype: %c\nwidth: %d\n_ _ _ _ _ \n", tmp->arg, tmp->flag, tmp->prec, (char*)tmp->modif, tmp->type, tmp->width);
-	if (format[x] != '\0')
-		new_node();
 	return (tmp->arg);
 }
 
