@@ -30,25 +30,79 @@ int main()
 	ft_printf("+: %+d - Place un signe sur une conversion signed\n", +123);
 	ft_printf("space: |% d| - Ajoute un space a gauche d'une conversion signed\n", 123);
 	ft_printf("\n\x1B[32m= Modif hh h l ll j z = \x1B[0m\n\n");
+	
 	ft_printf("\n\x1B[34m= d, i\x1B[0m\n\n");
-	ft_printf("ft_printf	hd: %hd \n", 123456);
-	printf("printf		hd: %hd\n", 123456);
-
-	ft_printf("ft_printf	hhd: %hhd\n", 'p');
-	printf("printf		hhd: %hhd\n", 'p');
-	ft_printf("ft_printf	ld: %ld\n", 123456789);
-	printf("printf		ld: %ld\n", 123456789);
-	ft_printf("ft_printf	lld: %lld\n", 123456789);
-	printf("printf		lld: %lld\n", 123456789);
+	ft_printf("ft_printf	h: %hd \n", 123456);
+	printf("printf		h: %hd\n", 123456);
+	ft_printf("ft_printf	hh: %hhd\n", 'p');
+	printf("printf		hh: %hhd\n", 'p');
+	ft_printf("ft_printf	l: %ld\n", 123456789);
+	printf("printf		l: %ld\n", 123456789);
+	ft_printf("ft_printf	ll: %lld\n", 123456789);
+	printf("printf		ll: %lld\n", 123456789);
 	ft_printf("ft_printf	j: %jd\n", 123456789);
 	printf("printf		j: %jd\n", 123456789);
 	ft_printf("ft_printf	z: %zd\n", 123456789);
 	printf("printf		z: %zd\n", 123456789);
 	
-	ft_printf("\n\x1B[34m=================\x1B[0m\n\n");
-	ft_printf("\n\x1B[34m= o, u, x, X\x1B[0m\n\n");
+	ft_printf("\x1B[34m= x\x1B[0m\n");
+	ft_printf("ft_printf	h: %hx \n", 123456);
+	printf("printf		h: %hx\n", 123456);
+	ft_printf("ft_printf	hh: %hhx\n", 'p');
+	printf("printf		hh: %hhx\n", 'p');
+	ft_printf("ft_printf	l: %lx\n", 123456789);
+	printf("printf		l: %lx\n", 123456789);
+	ft_printf("ft_printf	ll: %llx\n", 123456789);
+	printf("printf		ll: %llx\n", 123456789);
+	ft_printf("ft_printf	j: %jx\n", 123456789);
+	printf("printf		j: %jx\n", 123456789);
+	ft_printf("ft_printf	z: %zx\n", 123456789);
+	printf("printf		z: %zx\n", 123456789);
+	
+	ft_printf("\x1B[34m= X\x1B[0m\n");
+	ft_printf("ft_printf	h: %hX \n", 123456);
+	printf("printf		h: %hX\n", 123456);
+	ft_printf("ft_printf	hh: %hhX\n", 'p');
+	printf("printf		hh: %hhX\n", 'p');
+	ft_printf("ft_printf	l: %lX\n", 123456789);
+	printf("printf		l: %lX\n", 123456789);
+	ft_printf("ft_printf	ll: %llX\n", 123456789);
+	printf("printf		ll: %llX\n", 123456789);
+	ft_printf("ft_printf	j: %jX\n", 123456789);
+	printf("printf		j: %jX\n", 123456789);
+	ft_printf("ft_printf	z: %zX\n", 123456789);
+	printf("printf		z: %zX\n", 123456789);
 
-	ft_printf("\n\x1B[34m=	Flag	d, i			o, u x, X\x1B[0m\n\n");
+	ft_printf("\x1B[34m= u\x1B[0m\n");
+	ft_printf("ft_printf	h: %hu \n", 123456);
+	printf("printf		h: %hu\n", 123456);
+	ft_printf("ft_printf	hh: %hhu\n", 'p');
+	printf("printf		hh: %hhu\n", 'p');
+	ft_printf("ft_printf	l: %lu\n", 123456789);
+	printf("printf		l: %lu\n", 123456789);
+	ft_printf("ft_printf	ll: %llu\n", 123456789);
+	printf("printf		ll: %llu\n", 123456789);
+	ft_printf("ft_printf	j: %ju\n", 123456789);
+	printf("printf		j: %ju\n", 123456789);
+	ft_printf("ft_printf	z: %zu\n", 123456789);
+	printf("printf		z: %zu\n", 123456789);
+
+	ft_printf("\x1B[34m= o\x1B[0m\n");
+	ft_printf("ft_printf	h: %ho \n", 123456);
+	printf("printf		h: %ho\n", 123456);
+	ft_printf("ft_printf	hh: %hho\n", 'p');
+	printf("printf		hh: %hho\n", 'p');
+	ft_printf("ft_printf	l: %lo\n", 123456789);
+	printf("printf		l: %lo\n", 123456789);
+	ft_printf("ft_printf	ll: %llo\n", 123456789);
+	printf("printf		ll: %llo\n", 123456789);
+	ft_printf("ft_printf	j: %jo\n", 123456789);
+	printf("printf		j: %jo\n", 123456789);
+	ft_printf("ft_printf	z: %zo\n", 123456789);
+	printf("printf		z: %zo\n", 123456789);
+	
+
+	ft_printf("\n\x1B[34m=	Flag	d, i			o, u x, X	=\x1B[0m\n\n");
 	ft_printf("	hh	Signed char		unsigned char\n");
 	ft_printf("	h	short			unsigned short\n");
 	ft_printf("	l	long			unsigned long\n");
