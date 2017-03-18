@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 21:37:00 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/18 17:50:54 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/18 18:27:23 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 void parse_arg_modif(t_argmnt *tmp, va_list ap)
 {
-	modif_di(tmp, ap);
+	if ((tmp->type == 'd' || tmp->type == 'i'))
+		modif_di(tmp, ap);
 }
 
 void parse_arg_flag(t_argmnt *tmp)
@@ -31,9 +32,8 @@ void parse_arg_flag(t_argmnt *tmp)
 
 void		parse_arg_type(t_argmnt *tmp, va_list ap)
 {
-	//if (parse_arg_modif(tmp, ap) == 1)
-	//	parse_arg_flag(tmp);
-	//parse_arg_modif(tmp, ap);
+	if (tmp->modif)
+		parse_arg_modif(tmp, ap);
 	if (tmp->type == 's' || tmp->type == 'S')
 		tmp->arg = va_arg(ap, char*);
 	if (tmp->type == 'u')
