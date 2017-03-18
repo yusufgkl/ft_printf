@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 20:00:55 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/17 21:07:17 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/18 20:38:31 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ long int conv_o(int n)
 	n1=n;
 	while(n > 0)
 	{
-		rem=n%8;
-		ans=(rem*m)+ans;
-		n=n/8;
-		m=m*10;
+		rem = n % 8;
+		ans = (rem * m) + ans;
+		n = n / 8;
+		m = m * 10;
 	}
 	return (ans);
 }
@@ -90,7 +90,6 @@ char* itoabase(int num, int base)
 
 char* itoa_h(short num, int base)
 {
-printf("hep");
 	int i = 0;
 	int	isNegative = 0;
 	char *str;

@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 21:37:00 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/18 18:27:23 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/18 19:54:19 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ void parse_arg_flag(t_argmnt *tmp)
 		flag_zero(tmp);
 	if (tmp->flag == ' ')
 		tmp->arg = ft_strjoin(fill_char(tmp->width, ' '), tmp->arg);
-	//parse_arg_modif(tmp);
+	if (tmp->flag == '+' && tmp->arg[0] != '-')
+		tmp->arg = ft_strjoin("+", tmp->arg);
+
 }
 
 void		parse_arg_type(t_argmnt *tmp, va_list ap)

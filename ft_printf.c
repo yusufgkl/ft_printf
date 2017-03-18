@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 17:54:40 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/18 17:42:25 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/18 20:38:35 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char		*analyze(const char *format, va_list ap, int x)
 	t_argmnt	*tmp;
 	
 	tmp = malloc(sizeof(t_argmnt));
-	while (format[x] != '\0' && format[x] != ' ')
+	while (format[x] != '\0' && format[x] != ' ' )
 	{
 		if (format[x] == '%' && !is_percent(format, x))
 		{
@@ -58,7 +58,7 @@ int		ft_printf(const char *format, ...)
 			flag = 1;
 			ft_putstr(analyze(format, ap, i));
 		}
-		if (format[i] == ' ' && format[i - 1] != '%')
+		if ((format[i] == ' ' && format[i - 1] != '%') || format[i] == '\n')
 			flag = 0;
 		if ((flag == 0 && format[i] != '%'))
 			i += write(1,&format[i],1);
