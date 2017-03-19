@@ -38,7 +38,7 @@ FLAGS = -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(OBJC)
-	gcc $(FLAGS) -c $(SRC) -I $(INC)
+	gcc $(FLAGS) -c $(SRC) ./libft/libft.a -I $(INC)
 	ar rc $(NAME) $(OBJC)
 	ranlib $(NAME)
 
