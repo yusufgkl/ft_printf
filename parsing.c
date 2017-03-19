@@ -39,7 +39,7 @@ void		parse_arg_type(t_argmnt *tmp, va_list ap)
 	if (tmp->type == 's' || tmp->type == 'S')
 		tmp->arg = va_arg(ap, char*);
 	if (tmp->type == 'u')
-		tmp->arg = itoabase((unsigned int)va_arg(ap, char*), 10);
+		tmp->arg = itoabase((unsigned int)va_arg(ap, unsigned int), 10);
 	if (tmp->type == 'U')
 		tmp->arg = itoabase((unsigned int)va_arg(ap, long), 10);
 	if (tmp->type == 'D')

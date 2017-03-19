@@ -33,7 +33,7 @@ FLAGS = -Wall -Werror -Wextra
 INC = ./ft_printf.h\
 	./libft.h\
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -Wpointer-to-int-cast
 
 LIBFT = libft/*.c
 
