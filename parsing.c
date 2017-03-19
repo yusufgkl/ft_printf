@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
+#include "libft.h"
 
 void parse_arg_modif(t_argmnt *tmp, va_list ap)
 {
