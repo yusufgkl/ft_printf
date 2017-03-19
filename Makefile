@@ -26,21 +26,23 @@ OBJC = ./ft_printf.o\
 	  ./conv_di.o\
 	  ./conv_ouxX.o\
 
-
 OBJ = $(SRC:.c:.o)
 
 FLAGS = -Wall -Werror -Wextra
 
 INC = ./ft_printf.h\
+	./libft.h\
 
 FLAGS = -Wall -Wextra -Werror
+
+LIBFT = libft/*.c
 
 all: $(NAME)
 
 $(NAME): $(OBJC)
-	gcc $(FLAGS) -c $(SRC) ./libft/libft.a -I $(INC)
-	ar rc $(NAME) $(OBJC)
-	ranlib $(NAME)
+	@gcc $(FLAGS) -c $(SRC) $(LIBFT) -I $(INC)
+	@ar rc $(NAME) $(OBJC) ./libft/*.o
+	@ranlib $(NAME)
 
 clean:
 	@rm -rf $(OBJC)
