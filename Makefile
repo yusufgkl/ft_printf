@@ -10,35 +10,44 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ok
+NAME = libftprintf.a
 
 SRC = ./ft_printf.c\
 	  ./flags.c\
 	  ./utils.c\
 	  ./parsing.c\
+	  ./conv_di.c\
+	  ./conv_ouxX.c\
+
+OBJC = ./ft_printf.o\
+	  ./flags.o\
+	  ./utils.o\
+	  ./parsing.o\
+	  ./conv_di.o\
+	  ./conv_ouxX.o\
+
 
 OBJ = $(SRC:.c:.o)
 
 FLAGS = -Wall -Werror -Wextra
 
-all : $(NAME)
+INC = ./ft_printf.h\
 
-$(NAME):
-	@/bin/echo "-----Compilating sources-----"
-	@make -C ./libft
-	@/bin/echo "---Done---"
-	@/bin/echo "-----Creating executable-----"
-	@gcc $(FLAGS) -o $(NAME) $(SRC) ./libft/libft.a
-	@/bin/echo "---Done---"
+FLAGS = -Wall -Wextra -Werror
+
+all: $(NAME)
+
+$(NAME): $(OBJC)
+	gcc $(FLAGS) -c $(SRC) -I $(INC)
+	ar rc $(NAME) $(OBJC)
+	ranlib $(NAME)
 
 clean:
-	@/bin/echo "-----cleaning-----"
-	@/bin/rm -f $(OBJ)
-	@make clean -C ./libft
+	@rm -rf $(OBJC)
 
 fclean:
-	@/bin/echo "-----fcleaning-----"
-	@/bin/rm -f $(NAME)
-	@make fclean -C ./libft
+	@rm -rf $(NAME)
+	@rm -rf $(OBJC)
 
-re: fclean all
+re:
+	@make fclean all

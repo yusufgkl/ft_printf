@@ -47,7 +47,6 @@ int		ft_printf(const char *format, ...)
 	va_list		ap;
 	int i;
 	int flag = 0;
-	t_argmnt *args;
 
 	va_start(ap, format);
 	i = 0;
