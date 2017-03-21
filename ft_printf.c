@@ -22,15 +22,15 @@ int	is_percent(const char *str, int x)
 		return (0);
 }
 
-char		*analyze(const char *format, va_list ap, int x)
+int		analyze(const char *format, va_list ap, int i)
 {
 	//printf("\n__________ Analyze __________\n");
 	t_argmnt	*tmp;
-	
+	int x = i;
 	tmp = malloc(sizeof(t_argmnt));
-	while (format[x] != '\0' && format[x] != ' ' )
+	while (format[x] != '\0' && format[x] != ' ')
 	{
-		if (format[x] == '%' && !is_percent(format, x))
+		if (format[x] == '%')
 		{
 			x++;
 			parse_type(format, tmp, x, ap);
@@ -39,32 +39,22 @@ char		*analyze(const char *format, va_list ap, int x)
 			x++;
 	}
 	//printf("\narg: %s \nflag: |%c| \nprec: %d\nmodif: %s\ntype: %c\nwidth: %d\n_ _ _ _ _ \n", tmp->arg, tmp->flag, tmp->prec, (char*)tmp->modif, tmp->type, tmp->width);
-	return (tmp->arg);
+	//ft_putstr(tmp->arg);
+	return (write(1, tmp->arg, (int)ft_strlen(tmp->arg)));
 }
 
 int		ft_printf(const char *format, ...)
 {
 	va_list		ap;
 	int i;
-	int flag = 0;
-
 	va_start(ap, format);
 	i = 0;
-	while (format[i])
+	while (format[i] && i <= (int)ft_strlen(format))
 	{
-		if (format[i] == '%' && flag == 0 && !is_percent(format, i))
-		{
-			flag = 1;
-			ft_putstr(analyze(format, ap, i));
-		}
-		if ((format[i] == ' ' && format[i - 1] != '%') || format[i] == '\n')
-			flag = 0;
-		if ((flag == 0 && format[i] != '%'))
-			i += write(1,&format[i],1);
-		else if (is_percent(format, i))
-			i += write(1, "%", 1);
+		if (format[i] == '%')
+			i += analyze(format, ap, i);
 		else
-			i++;
+			i += write(1,&format[i],1);
 	}
 	va_end(ap);
 	return (i);

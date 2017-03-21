@@ -45,7 +45,7 @@ void		parse_arg_type(t_argmnt *tmp, va_list ap)
 	if (tmp->type == 'D')
 		tmp->arg = itoabase((signed int)va_arg(ap, long), 10);
 	if (tmp-> type == 'c')
-		tmp->arg = (char*)va_arg(ap, char*);
+		tmp->arg = ctostr((unsigned int)va_arg(ap, unsigned int));
 	if (tmp-> type == 'C')
 		tmp->arg = ctostr((wchar_t)va_arg(ap, char*));
 	if (tmp->type == 'p')

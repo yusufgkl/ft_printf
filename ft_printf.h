@@ -30,6 +30,7 @@ typedef struct	s_argmnt
 	struct s_argmnt		*next;
 }				t_argmnt;
 
+int		ft_printf(const char *format, ...);
 void			parse_width(const char* chr, t_argmnt *tmp, int i);
 void			parse_prec(const char* chr, t_argmnt *tmp, int i);
 void			parse_type(const char *chr, t_argmnt *tmp, int i, va_list ap);

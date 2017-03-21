@@ -46,10 +46,12 @@ $(NAME): $(OBJC)
 
 clean:
 	@rm -rf $(OBJC)
+	@rm -rf ./*.o
 
 fclean:
 	@rm -rf $(NAME)
 	@rm -rf $(OBJC)
+	@rm -rf ./*.o
 
 re:
 	@make fclean all
