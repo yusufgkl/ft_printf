@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 17:54:40 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/23 14:39:54 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/21 22:05:49 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,66 +14,46 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-int is_arg(char *s, int x)
+int	is_percent(const char *str, int x)
+{
+	if (str[x] == '%' && str[x - 1] == '%')
+		return (1);
+	else
+		return (0);
+}
+
+int is_arg(char c)
 {
 	char *str = "sSpdDiOouUxXcC%";
 	int i;
 
 	i = 0;
-	while (str[i] != s[x] && str[i])
+	while (str[i] != '\0')
+	{
+		if (c == str[i])
+			return (1);
 		i++;
-	i = x;
+	}
 	return (0);
 }
 
-t_argmnt	*init_struct(t_argmnt *tmp)
-{
-	tmp->flag.hash = 0;
-	tmp->flag.zero = 0;
-	tmp->flag.minus = 0;
-	tmp->flag.plus = 0;
-	tmp->flag.space = 0;
-	tmp->width = 0;
-	tmp->prec = 0;
-	tmp->modif = NULL;
-	tmp->type = '\0';
-	tmp->arg = NULL;
-	tmp->pad = 0;
-	return (tmp);
-}
-
-int		analyze(const char *format, va_list ap, int *i)
+int		analyze(const char *format, va_list ap, int i)
 {
 	t_argmnt	*tmp;
-	int x = *i;
+	int x = i;
 	tmp = malloc(sizeof(t_argmnt));
-	tmp = init_struct(tmp);
-	while (format[x] != '\0' && format[x] == '%')
+	while (format[x] != '\0' && (format[x] != ' ' || !is_arg(format[x])))
 	{
 		if (format[x] == '%')
 		{
 			x++;
-			parse_type(format, tmp, x);
+			parse_type(format, tmp, x, ap);
 		}
 		else
 			x++;
 	}
-	//printf("\narg: %s \nflags: #: %d 0: %d -: %d +: %d space: %d \nprec: %d\nmodif: %s\ntype: %c\nwidth: %d\npadding: %d\n_ _ _ _ _\n", tmp->arg,tmp->flag.hash, tmp->flag.zero, tmp->flag.minus, tmp->flag.plus, tmp->flag.space, tmp->prec, (char*)tmp->modif, tmp->type, tmp->width, tmp->pad);
-	tmp->arg = print_arg(tmp, ap);
-	tmp->arg = (tmp->arg == NULL) ? tmp->arg = "(null)" : tmp->arg;
-	*i += tmp->pad;
+	//printf("\narg: %s \nflag: |%c| \nprec: %d\nmodif: %s\ntype: %c\nwidth: %d\n_ _ _ _ _ \n", tmp->arg, tmp->flag, tmp->prec, (char*)tmp->modif, tmp->type, tmp->width);
 	return (write(1, tmp->arg, (int)ft_strlen(tmp->arg)));
-}
-
-int is_percent(const char *str, int i)
-{
-	if (str[i] == '%' && str[i + 1] == '%')
-	{
-		i++;
-		return (1);
-	}
-	else
-		return (0);
 }
 
 int		ft_printf(const char *format, ...)
@@ -81,7 +61,6 @@ int		ft_printf(const char *format, ...)
 	va_list		ap;
 	int i;
 	int j;
-
 	va_start(ap, format);
 	i = 0;
 	j = 0;
@@ -94,9 +73,9 @@ int		ft_printf(const char *format, ...)
 	}
 	while (format[i] && i <= (int)ft_strlen(format))
 	{
-		if (format[i] == '%' && format[i + 1] != '\0' && !is_percent(format, i))
-			j += analyze(format, ap, &i);
-		else if (!is_percent(format, i))
+		if (format[i] == '%')
+			j += analyze(format, ap, i);
+		else if (!is_arg(format[i]))
 			j += write(1,&format[i],1);
 		i++;
 	}

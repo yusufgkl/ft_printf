@@ -17,7 +17,6 @@ char		*ft_itoa(int n)
 	int		nlen;
 	int		a;
 	char	*ret;
-
 	nlen = ft_numlen(n);
 	if ((ret = (char*)malloc(sizeof(*ret) * (nlen + 2))) == NULL)
 		return (NULL);

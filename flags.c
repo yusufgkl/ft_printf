@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/15 15:12:06 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/18 19:16:36 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/22 18:29:25 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char *fill_char(int i, char c)
 	int x;
 
 	x = 0;
-	zero = (char *)malloc(sizeof(char) * (i));
+	zero = (char *)malloc(sizeof(char) * (i) + 1);
 	while (x != i)
 	{
 		zero[x] = c;
@@ -39,13 +39,17 @@ char *fill_char(int i, char c)
 	return (zero);
 }
 
-void flag_zero(t_argmnt *tmp)
+char *flag_zero(t_argmnt *tmp, int size)
 {
-	int i;
-	if (tmp->width != 0)
+	if (tmp->arg[0] != '-')
+		return (ft_strcat(fill_char(size, '0'), tmp->arg));
+	else if (tmp->arg[0] == '-')
 	{
-		i = (tmp->width - (ft_strlen(tmp->arg)));
-		if (i > 0)
-			tmp->arg = ft_strjoin(fill_char(i, '0'), tmp->arg);
+		tmp->arg = ft_itoa(ft_atoi(tmp->arg) * -1);
+		tmp->arg = (ft_strjoin(fill_char(size, '0'), tmp->arg));
+		tmp->arg = (ft_strjoin("-", tmp->arg));
+		return (tmp->arg);
 	}
+	else
+		return (tmp->arg);
 }

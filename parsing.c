@@ -6,80 +6,31 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 21:37:00 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/18 19:54:19 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/23 14:02:30 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft.h"
 
-void parse_arg_modif(t_argmnt *tmp, va_list ap)
-{
-	if ((tmp->type == 'd' || tmp->type == 'i'))
-		modif_di(tmp, ap);
-}
-
-void parse_arg_flag(t_argmnt *tmp)
-{
-	if (tmp->flag == '#')
-		flag_hashtg(tmp);
-	if (tmp->flag == '0')
-		flag_zero(tmp);
-	if (tmp->flag == ' ')
-		tmp->arg = ft_strjoin(fill_char(tmp->width, ' '), tmp->arg);
-	if (tmp->flag == '+' && tmp->arg[0] != '-')
-		tmp->arg = ft_strjoin("+", tmp->arg);
-
-}
-
-void		parse_arg_type(t_argmnt *tmp, va_list ap)
-{
-	if (tmp->modif)
-		parse_arg_modif(tmp, ap);
-	if (tmp->type == 's' || tmp->type == 'S')
-		tmp->arg = va_arg(ap, char*);
-	if (tmp->type == 'u')
-		tmp->arg = itoabase((unsigned int)va_arg(ap, unsigned int), 10);
-	if (tmp->type == 'U')
-		tmp->arg = itoabase((unsigned int)va_arg(ap, long), 10);
-	if (tmp->type == 'D')
-		tmp->arg = itoabase((signed int)va_arg(ap, long), 10);
-	if (tmp-> type == 'c')
-		tmp->arg = ctostr((unsigned int)va_arg(ap, unsigned int));
-	if (tmp-> type == 'C')
-		tmp->arg = ctostr((wchar_t)va_arg(ap, char*));
-	if (tmp->type == 'p')
-		tmp->arg = ft_strjoin("0x", itoabase((int)(va_arg(ap, void*)), 16));
-	if (tmp->type == 'x')
-		tmp->arg = itoabase((int)(va_arg(ap, void*)), 16);
-	if (tmp->type == 'X')
-		tmp->arg = strtoup(itoabase((int)(va_arg(ap, void*)), 16));
-	if ((tmp->type == 'd' || tmp->type == 'i') && tmp->modif == NULL)
-		tmp->arg = ft_itoa(va_arg(ap, int));
-	if (tmp->type == 'o')
-		tmp->arg = ft_itoa((int)conv_o((int)(va_arg(ap, void*))));
-	if (tmp->type == 'O')
-		tmp->arg = ft_itoa((int)conv_o((int)(va_arg(ap, long))));
-	if (tmp->type == 'b')
-		tmp->arg = itoabase((int)(va_arg(ap, void*)), 2);
-	if (tmp->flag != '|')
-		parse_arg_flag(tmp);
-}
-
-
 void		parse_width(const char *chr, t_argmnt *tmp, int i)
 {
 	int x = i;
-	tmp->width = 0;
-	if (chr[x] == ' ')
+	if (chr[x] == ' ' || chr[x] == '-')
 		x++;
-	while (ft_isdigit(chr[x]) && (chr[x - 1] != '.' || (chr[x - 1] == tmp->flag)))
+	while (ft_isdigit(chr[x]) && (chr[x - 1] != '.'))
 	{
-		if (ft_isdigit(chr[x]) == 1)
+		if (ft_isdigit(chr[x]) == 1 && !ft_isdigit(chr[x + 1]) && !ft_isdigit(chr[x - 1]))
 			tmp->width = ft_atoi(&chr[x]);
+		if (ft_isdigit(chr[x]) && ft_isdigit(chr[x + 1]))
+			tmp->width = ft_atoi(ft_strjoin(ctostr(chr[x]), ctostr(chr[x + 1])));
 		x++;
 	}
 	x = 0;
+	(tmp->width) != 0 ? tmp->pad++ : tmp->pad;
+	(tmp->width) > 9 ? tmp->pad++ : tmp->pad;
+	if (tmp->type == '|')
+		return ;
 	parse_prec(chr, tmp, i);
 }
 
@@ -93,6 +44,7 @@ void		parse_prec(const char *chr, t_argmnt *tmp, int i)
 			tmp->prec = (int)ft_atoi(&chr[x]);
 		x++;
 	}
+	(tmp->prec) ? tmp->pad += x : tmp->pad;
 	x = 0;
 }
 
@@ -100,31 +52,30 @@ void		parse_type2(char chr, t_argmnt *tmp)
 {
 	if (chr == 'o')
 		tmp->type = 'o';
-	if (chr == 'O')
+	else if (chr == 'O')
 		tmp->type = 'O';
-	if (chr == 'u')
-		tmp->type= 'u';
-	if (chr == 'O')
+	else if (chr == 'u')
+		tmp->type = 'u';
+	else if (chr == 'O')
 		tmp->type = 'O';
-	if (chr == 'D')
+	else if (chr == 'D')
 		tmp->type = 'D';
-	if (chr == 'x')
+	else if (chr == 'x')
 		tmp->type = 'x';
-	if (chr == 'X')
+	else if (chr == 'X')
 		tmp->type = 'X';
-	if (chr == 'c')
+	else if (chr == 'c')
 		tmp->type = 'c';
-	if (chr == 'C')
+	else if (chr == 'C')
 		tmp->type = 'C';
-	if (chr == '%')
-		tmp->type = '%';
-	if (chr == 'b')
+	else if (chr == '%')
+		tmp->arg = "%";
+	else if (chr == 'b')
 		tmp->type = 'b';
-	if (chr == 'U')
+	else if (chr == 'U')
 		tmp->type = 'U';
-
 }
-void		parse_type(const char* chr, t_argmnt *tmp, int i, va_list ap)
+void		parse_type(const char* chr, t_argmnt *tmp, int i)
 {
 	int x;
 	x = i;
@@ -135,35 +86,39 @@ void		parse_type(const char* chr, t_argmnt *tmp, int i, va_list ap)
 		parse_type2(chr[x], tmp);
 		if (chr[x] == 's')
 			tmp->type = 's';
-		if (chr[x] == 'S')
+		else if (chr[x] == 'S')
 			tmp->type = 'S';
-		if (chr[x] == 'p')
+		else if (chr[x] == 'p')
 			tmp->type= 'p';
-		if (chr[x] == 'd')
+		else if (chr[x] == 'd')
 			tmp->type = 'd';
-		if (chr[x] == 'D')
+		else if (chr[x] == 'D')
 			tmp->type = 'D';
-		if (chr[x] == 'i')
+		else if (chr[x] == 'i')
 			tmp->type = 'i';
+		//else if (ft_isalpha(chr[x]))
+		//	tmp->type = chr[x];
 		x++;
 	}
+	if (tmp->type == chr[x])
+		tmp->arg = ctostr(chr[x]);
+
 	x = 0;
+	(tmp->type) ? tmp->pad++ : tmp->pad;
 	parse_modif(chr, tmp, i);
-	parse_arg_type(tmp, ap);
 }
 
 void		parse_modif(const char *chr, t_argmnt *tmp, int x)
 {
 	int i = x;
 
-	tmp->modif = NULL;
-	while (chr[i] != ' ' && chr[i + 1] != '%')
+	while (chr[i] != ' ' && chr[i + 1] != '%' && !tmp->modif)
 	{
-		if (chr[i] == 'h')
+		if (chr[i] == 'h' && chr[i + 1] != 'h')
 			tmp->modif = "h";
-		if (chr[i] == 'h' && (chr[i + 1] == 'h' || chr[i - 1] == 'h'))
+		if (chr[i] == 'h' && (chr[i + 1] == 'h'))
 			tmp->modif = "hh";
-		if (chr[i] == 'l')
+		if (chr[i] == 'l' && chr[i + 1] != 'l')
 			tmp->modif = "l";
 		if (chr[i] == 'l' && chr[i + 1] == 'l')
 			tmp->modif = "ll";
@@ -174,28 +129,63 @@ void		parse_modif(const char *chr, t_argmnt *tmp, int x)
 		i++;
 	}
 	i = 0;
+	(tmp->modif) ? tmp->pad += (int)ft_strlen(tmp->modif) : tmp->pad;
 	parse_flags(chr, tmp, x);
 }
 
+
+
+
+
 void		parse_flags(const char *chr, t_argmnt *tmp, int i)
 {
-	int j = i;
+	int j;
 
-	tmp->flag = '|';
-	while (chr[j] != ' ' || (chr[j] == ' ' && chr[j - 1] == '%'))
+	j = i;
+	while ((chr[j] != ' ' || (chr[j] == ' ' && chr[j - 1] == '%')) && !ft_isdigit(chr[j - 1]))
 	{
 		if (chr[j] == '#')
-			tmp->flag = '#';
+			tmp->flag.hash  = 1;
 		if (chr[j] == '0')
-			tmp->flag = '0';
+			tmp->flag.zero = 1;
 		if (chr[j] == '-')
-			tmp->flag = '-';
+			tmp->flag.minus = 1;
 		if (chr[j] == '+')
-			tmp->flag = '+';
+			tmp->flag.plus = 1;
 		if (chr[j] == ' ')
-			tmp->flag = ' ';
+			tmp->flag.space = 1;
 		j++;
 	}
 	j = 0;
+	(isflag(tmp->flag)) ? tmp->pad ++ : tmp->pad;
 	parse_width(chr, tmp, i);
 }
+/*
+void		parse_flags(const char *chr, t_argmnt *tmp, int i)
+{
+	int j;
+	int x;
+
+	j = i;
+	x = 0;
+
+	while ((chr[j] != ' ' || (chr[j] == ' ' && chr[j - 1] == '%')) && !ft_isdigit(chr[j - 1]))
+	{
+		if (chr[j] == '#')
+			tmp->flag[x] = '#';
+		if (chr[j] == '0')
+			tmp->flag[x] = '0';
+		if (chr[j] == '-')
+			tmp->flag[x] = '-';
+		if (chr[j] == '+')
+			tmp->flag[x] = '+';
+		if (chr[j] == ' ')
+			tmp->flag[x] = ' ';
+		j++;
+		x++;
+	}
+	j = 0;
+	(tmp->flag) ? tmp->pad ++ : tmp->pad;
+	parse_width(chr, tmp, i);
+}
+*/

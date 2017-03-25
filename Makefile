@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: jumiguel <jumiguel@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/02/04 16:20:10 by aaudiber          #+#    #+#              #
-#    Updated: 2017/03/17 15:27:14 by ygokol           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = libftprintf.a
 
 SRC = ./ft_printf.c\
@@ -18,6 +6,9 @@ SRC = ./ft_printf.c\
 	  ./parsing.c\
 	  ./conv_di.c\
 	  ./conv_ouxX.c\
+	  ./conv_p.c\
+	  ./conv_C.c\
+	  ./print.c\
 
 OBJC = ./ft_printf.o\
 	  ./flags.o\
@@ -25,6 +16,9 @@ OBJC = ./ft_printf.o\
 	  ./parsing.o\
 	  ./conv_di.o\
 	  ./conv_ouxX.o\
+	  ./conv_p.o\
+	  ./conv_C.o\
+	  ./print.o\
 
 OBJ = $(SRC:.c:.o)
 

@@ -18,7 +18,8 @@ char *ctostr(char c)
 	char *str;
 	str = (char*)malloc(sizeof(char) * 2);
 	str[0] = c;
-	str[1] = '\0';
+	if (str[0] != '\0')
+		str[1] = '\0';
 	return (str);
 }
 
@@ -40,22 +41,7 @@ char	*reverse(char *str)
 	return(str);
 }
 
-long int conv_o(int n)
-{
-	long int n1,m=1,rem,ans=0;
-
-	n1=n;
-	while(n > 0)
-	{
-		rem = n % 8;
-		ans = (rem * m) + ans;
-		n = n / 8;
-		m = m * 10;
-	}
-	return (ans);
-}
-
-char* itoabase(int num, int base)
+char* itoabase(unsigned int num, int base)
 {
 	int i = 0;
 	int	isNegative = 0;
@@ -68,11 +54,11 @@ char* itoabase(int num, int base)
 		str[i] = '\0';
 		return str;
 	}
-	if (num < 0 && base == 10)
+	/*if (num < 0 && base == 10)
 	{
 		isNegative = 1;
 		num = -num;
-	}
+	}*/
 	while (num != 0)
 	{
 		int rem = num % base;
@@ -149,4 +135,44 @@ void	putnbr_l(long n, t_argmnt *tmp)
 	}
 	else
 		ft_strjoin(tmp->arg, ft_itoa(n + '0'));
+}
+
+int isflag (t_flags flag)
+{
+	if (flag.hash || flag.zero || flag.minus || flag.plus || flag.space)
+		return (1);
+	else
+		return (0);
+}
+
+char		*ft_ltoa(long n)
+{
+	long	nlen;
+	long	a;
+	char	*ret;
+	if (n < -9223372036854775807)
+		return ("-9223372036854775808");
+	else if (n >= 9223372036854775807)
+		return ("9223372036854775807");
+	nlen = ft_numlen(n);
+	if ((ret = (char*)malloc(sizeof(*ret) * (nlen + 2))) == NULL)
+		return (NULL);
+	ret[nlen + 1] = '\0';
+	a = 1;
+	if (n == 0)
+		ret[0] = '0';
+	if (n < 0)
+	{
+		a = -1;
+		ret[0] = '-';
+	}
+	while (nlen != 0)
+	{
+		ret[nlen--] = a * (n % 10) + '0';
+		n /= 10;
+		if (ret[nlen] == '-')
+			return (ret);
+	}
+	ret[nlen] = a * (n % 10) + '0';
+	return (ret);
 }
