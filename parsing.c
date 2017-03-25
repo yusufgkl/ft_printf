@@ -40,11 +40,13 @@ void		parse_prec(const char *chr, t_argmnt *tmp, int i)
 	tmp->prec = 0;
 	while ((chr[x] != ' ' || ft_isdigit(chr[x])))
 	{
+		if (chr[x] == '.' && (chr[x - 1] == '%'))
+			tmp->pad++;
 		if (ft_isdigit(chr[x]) == 1 && chr[x - 1] == '.')
 			tmp->prec = (int)ft_atoi(&chr[x]);
 		x++;
 	}
-	(tmp->prec) ? tmp->pad += x : tmp->pad;
+	(tmp->prec) ? tmp->pad += (x - 1) : tmp->pad;
 	x = 0;
 }
 
@@ -69,7 +71,7 @@ void		parse_type2(char chr, t_argmnt *tmp)
 	else if (chr == 'C')
 		tmp->type = 'C';
 	else if (chr == '%')
-		tmp->arg = "%";
+		tmp->type = '%';
 	else if (chr == 'b')
 		tmp->type = 'b';
 	else if (chr == 'U')

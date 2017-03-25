@@ -4,22 +4,16 @@
 
 char *s_prec(char *str, int prec)
 {
-	int len;
-	int i;
+	char *ret;
 
-	i = 0;
-	len = (int)ft_strlen(str);
-	if (len <= prec)
+	ret = malloc(sizeof(char) * (prec + 1));
+	if ((int)ft_strlen(str) <- prec)
 		return (str);
 	else
 	{
-		while (i != len)
-		{
-			str[i] = str[i];
-			i++;
-		}
-		str[i] = '\0';
-		return (str);
+		ft_strncpy(ret, str, prec);
+		ret[prec] = '\0';
+		return (ret);
 	}
 }
 
@@ -28,9 +22,10 @@ char *prec_neg(t_argmnt *tmp)
 	char *ret;
 	int size;
 
+	size = 0;
 	ret = (ft_itoa(ft_atoi(tmp->arg) * -1));
 	size = (tmp->prec - (int)ft_strlen(ret));
-	if (size > 0)
+	if (size > 0 && tmp->prec > 0)
 		ret = ft_strjoin(fill_char(size, '0'), ret);
 	return (ft_strjoin("-", ret));
 
@@ -39,26 +34,30 @@ char *prec_neg(t_argmnt *tmp)
 void print_arg_prec(t_argmnt *tmp)
 {
 	int size;
-	
-	size = (tmp->prec - (int)ft_strlen(tmp->arg));
-	if (tmp->prec > 0 && size > 0)
+	size = 0;
+	if (tmp->prec > 0 && tmp->type != 's' && tmp->type != 'S')
 	{
-		if (tmp->type != 's' || tmp->type != 'S')
+		size = (tmp->prec - (int)ft_strlen(tmp->arg));
+		if (size > 0 && tmp->prec > 0)
 		{
 			if (tmp->arg[0] == '-')
 				tmp->arg = prec_neg(tmp);
 			else
 				tmp->arg = ft_strjoin(fill_char(size, '0'), tmp->arg);
 		}
-		else if (tmp->type == 's' || tmp->type == 'S')
-			tmp->arg = s_prec(tmp->arg, tmp->prec);
 	}
+	else if (tmp->prec > 0 && (tmp->type == 's' || tmp->type == 'S'))
+		tmp->arg = s_prec(tmp->arg, tmp->prec);
+	else
+		return ;
+
 }
 
 void print_arg_width(t_argmnt *tmp)
 {
 	int size;
 
+	size = 0;
 	size = (tmp->width - (int)ft_strlen(tmp->arg));
 	if (tmp->width > 0 && size > 0)
 	{
@@ -85,7 +84,7 @@ void print_arg_flag(t_argmnt *tmp)
 		flag_hashtg(tmp);
 	else if (tmp->flag.zero && !tmp->width)
 		tmp->arg = ft_strjoin(ctostr('0'), tmp->arg);
-	else if (tmp->flag.space)
+	else if (tmp->flag.space && tmp->arg[0] != '-')
 		tmp->arg = ft_strjoin(ctostr(' '), tmp->arg);
 	else if (tmp->flag.plus && tmp->arg[0] != '-')
 		tmp->arg = ft_strjoin("+", tmp->arg);
@@ -94,11 +93,27 @@ void print_arg_flag(t_argmnt *tmp)
 }
 
 
+char *ft_wputstr(wchar_t *s)
+{
+	int i;
+	char *ret;
+	ret = malloc(sizeof(char) * 100);
+	i = 0;
+	while (s[i] != '\0')
+	{
+		ret = ft_strjoin(ret, ft_print_special(s[i]));
+		i++;
+	}
+	return (ret);
+}
+
 void		print_arg_type(t_argmnt *tmp, va_list ap)
 {
 	if (tmp->modif)
 		print_arg_modif(tmp, ap);
 	if (tmp->type == 's')
+		tmp->arg = va_arg(ap, char*);
+	if (tmp->type == 'S')
 		tmp->arg = va_arg(ap, char*);
 	if (tmp->type == 'u')
 		tmp->arg = itoabase((unsigned int)va_arg(ap, unsigned long), 10);
@@ -107,7 +122,7 @@ void		print_arg_type(t_argmnt *tmp, va_list ap)
 	if (tmp->type == 'D')
 		tmp->arg = ft_itoa(va_arg(ap, long));
 	if (tmp-> type == 'c')
-		tmp->arg = ctostr(va_arg(ap, int));
+		tmp->arg = ctostr(va_arg(ap, unsigned int));
 	if (tmp-> type == 'C')
 		tmp->arg = ft_print_special((wchar_t)va_arg(ap, wchar_t));
 	if (tmp->type == 'p')

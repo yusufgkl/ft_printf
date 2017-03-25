@@ -42,10 +42,18 @@ t_argmnt	*init_struct(t_argmnt *tmp)
 	return (tmp);
 }
 
+void debug(t_argmnt *tmp)
+{
+
+	printf("\narg: %s \nflags: #: %d 0: %d -: %d +: %d space: %d \nprec: %d\nmodif: %s\ntype: %c\nwidth: %d\npadding: %d\n_ _ _ _ _\n", tmp->arg,tmp->flag.hash, tmp->flag.zero, tmp->flag.minus, tmp->flag.plus, tmp->flag.space, tmp->prec, (char*)tmp->modif, tmp->type, tmp->width, tmp->pad);
+}
+
 int		analyze(const char *format, va_list ap, int *i)
 {
 	t_argmnt	*tmp;
-	int x = *i;
+	int x;
+	
+	x = *i;
 	tmp = malloc(sizeof(t_argmnt));
 	tmp = init_struct(tmp);
 	while (format[x] != '\0' && format[x] == '%')
@@ -58,10 +66,12 @@ int		analyze(const char *format, va_list ap, int *i)
 		else
 			x++;
 	}
-	//printf("\narg: %s \nflags: #: %d 0: %d -: %d +: %d space: %d \nprec: %d\nmodif: %s\ntype: %c\nwidth: %d\npadding: %d\n_ _ _ _ _\n", tmp->arg,tmp->flag.hash, tmp->flag.zero, tmp->flag.minus, tmp->flag.plus, tmp->flag.space, tmp->prec, (char*)tmp->modif, tmp->type, tmp->width, tmp->pad);
 	tmp->arg = print_arg(tmp, ap);
 	tmp->arg = (tmp->arg == NULL) ? tmp->arg = "(null)" : tmp->arg;
 	*i += tmp->pad;
+	//debug(tmp);
+	//if (tmp->arg[0] == '0' && (!tmp->prec || !tmp->width) && ft_strchr("dDiuUoOxXp", tmp->type))
+	//	return (0);
 	return (write(1, tmp->arg, (int)ft_strlen(tmp->arg)));
 }
 

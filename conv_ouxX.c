@@ -22,7 +22,7 @@ void modif_ouxX(t_argmnt *tmp, va_list ap)
 	else if (!ft_strcmp(tmp->modif, "hh"))
 		tmp->arg = ft_itoa((unsigned short)va_arg(ap, int));
 	else if (!ft_strcmp(tmp->modif, "l"))
-		tmp->arg = itoa_h((unsigned long)va_arg(ap, unsigned long), 10);
+		tmp->arg = ft_ltoa((unsigned long)va_arg(ap, unsigned long));
 	else if (!ft_strcmp(tmp->modif, "ll"))
 		tmp->arg = itoa_h((unsigned long long)va_arg(ap, unsigned long long), 10);
 	else if (!ft_strcmp(tmp->modif, "j"))

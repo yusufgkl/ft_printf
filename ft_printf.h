@@ -70,5 +70,6 @@ void					print_arg_type(t_argmnt *tmp, va_list ap);
 int						isflag (t_flags flag);
 char					*print_arg(t_argmnt *tmp, va_list ap);
 char					*ft_ltoa(long n);
+void					putnbr_l(long n, t_argmnt *tmp);
 
 #endif

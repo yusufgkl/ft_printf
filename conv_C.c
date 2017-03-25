@@ -7,11 +7,6 @@ char *ft_putchar_w(char *mem)
 
 	str = mem;
 	return (str);
-	/*while (i < size)
-	{
-		write(1, str + i, 1);
-		i++;
-	}*/
 }
 static char*		ft_print_special_3(char str[4], wint_t c)
 {
@@ -51,7 +46,8 @@ char *ft_print_special(wint_t c)
 		return (ft_print_special_2(str, c));
 	else if (c <= 0x10FFFF)
 		return (ft_print_special_3(str, c));
-	return ("(null)");
+	else
+		return ("-1");
 }
 
 

@@ -37,5 +37,6 @@ char		*ft_itoa(int n)
 			return (ret);
 	}
 	ret[nlen] = a * (n % 10) + '0';
+	ret[(int)ft_strlen(ret)] = '\0';
 	return (ret);
 }

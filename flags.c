@@ -41,15 +41,17 @@ char *fill_char(int i, char c)
 
 char *flag_zero(t_argmnt *tmp, int size)
 {
-	if (tmp->arg[0] != '-')
-		return (ft_strcat(fill_char(size, '0'), tmp->arg));
-	else if (tmp->arg[0] == '-')
+	if (tmp->width || tmp->prec)
 	{
-		tmp->arg = ft_itoa(ft_atoi(tmp->arg) * -1);
-		tmp->arg = (ft_strjoin(fill_char(size, '0'), tmp->arg));
-		tmp->arg = (ft_strjoin("-", tmp->arg));
-		return (tmp->arg);
+		if (tmp->arg[0] != '-')
+			return (ft_strcat(fill_char(size, '0'), tmp->arg));
+		else if (tmp->arg[0] == '-')
+		{
+			tmp->arg = ft_itoa(ft_atoi(tmp->arg) * -1);
+			tmp->arg = (ft_strjoin(fill_char(size, '0'), tmp->arg));
+			tmp->arg = (ft_strjoin("-", tmp->arg));
+			return (tmp->arg);
+		}
 	}
-	else
-		return (tmp->arg);
+	return (tmp->arg);
 }
