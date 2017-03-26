@@ -35,9 +35,7 @@ void print_arg_prec(t_argmnt *tmp)
 {
 	int size;
 	size = 0;
-	if (tmp->arg[0] == '0' && (!tmp->prec && !tmp->width) && ft_strchr("diuoOxX", tmp->type))
-		tmp->arg = NULL;
-	else if (tmp->prec > 0 && tmp->type != 's' && tmp->type != 'S')
+	if (tmp->prec > 0 && tmp->type != 's' && tmp->type != 'S')
 	{
 		size = (tmp->prec - (int)ft_strlen(tmp->arg));
 		if (size > 0 && tmp->prec > 0)
@@ -50,9 +48,6 @@ void print_arg_prec(t_argmnt *tmp)
 	}
 	else if (tmp->prec > 0 && (tmp->type == 's' || tmp->type == 'S'))
 		tmp->arg = s_prec(tmp->arg, tmp->prec);
-	else
-		return ;
-
 }
 
 void print_arg_width(t_argmnt *tmp)
@@ -78,6 +73,8 @@ void print_arg_modif(t_argmnt *tmp, va_list ap)
 {
 	if ((tmp->type == 'd' || tmp->type == 'i'))
 		modif_di(tmp, ap);
+	if (ft_strchr("ouxX", tmp->type))
+		modif_ouxX(tmp, ap);
 }
 
 void print_arg_flag(t_argmnt *tmp)
@@ -120,9 +117,9 @@ void		print_arg_type(t_argmnt *tmp, va_list ap)
 	if (tmp->type == 'u')
 		tmp->arg = itoabase((unsigned int)va_arg(ap, unsigned long), 10);
 	if (tmp->type == 'U')
-		tmp->arg = itoabase((unsigned long)va_arg(ap, long), 10);
+		tmp->arg = ft_ultoa(va_arg(ap, unsigned long));
 	if (tmp->type == 'D')
-		tmp->arg = ft_itoa(va_arg(ap, long));
+		tmp->arg = ft_ltoa(va_arg(ap, long));
 	if (tmp-> type == 'c')
 		tmp->arg = ctostr((unsigned char)va_arg(ap, int));
 	if (tmp-> type == 'C')
@@ -151,7 +148,7 @@ char *print_arg(t_argmnt *tmp, va_list ap)
 		print_arg_type(tmp, ap);
 	if (isflag(tmp->flag))
 		print_arg_flag(tmp);
-	if (tmp->prec > 0)
+	if (tmp->prec >= 0)
 		print_arg_prec(tmp);
 	if (tmp->width > 0)
 		print_arg_width(tmp);

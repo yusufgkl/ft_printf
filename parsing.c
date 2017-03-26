@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 21:37:00 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/23 14:02:30 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/26 13:47:54 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void		parse_type(const char* chr, t_argmnt *tmp, int i)
 	int x;
 	x = i;
 
-	tmp->type = '\0';
 	while (tmp->type == '\0')
 	{
 		parse_type2(chr[x], tmp);
@@ -134,10 +133,6 @@ void		parse_modif(const char *chr, t_argmnt *tmp, int x)
 	(tmp->modif) ? tmp->pad += (int)ft_strlen(tmp->modif) : tmp->pad;
 	parse_flags(chr, tmp, x);
 }
-
-
-
-
 
 void		parse_flags(const char *chr, t_argmnt *tmp, int i)
 {

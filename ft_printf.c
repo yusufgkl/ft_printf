@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 17:54:40 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/23 14:39:54 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/26 13:53:28 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_argmnt	*init_struct(t_argmnt *tmp)
 void debug(t_argmnt *tmp)
 {
 
-	printf("\narg: %s \nflags: #: %d 0: %d -: %d +: %d space: %d \nprec: %d\nmodif: %s\ntype: %c\nwidth: %d\npadding: %d\n_ _ _ _ _\n", tmp->arg,tmp->flag.hash, tmp->flag.zero, tmp->flag.minus, tmp->flag.plus, tmp->flag.space, tmp->prec, (char*)tmp->modif, tmp->type, tmp->width, tmp->pad);
+	printf("\narg: |%s| \nflags: #: %d 0: %d -: %d +: %d space: %d \nprec: %d\nmodif: %s\ntype: %c\nwidth: %d\npadding: %d\n_ _ _ _ _\n", tmp->arg,tmp->flag.hash, tmp->flag.zero, tmp->flag.minus, tmp->flag.plus, tmp->flag.space, tmp->prec, (char*)tmp->modif, tmp->type, tmp->width, tmp->pad);
 }
 
 int		analyze(const char *format, va_list ap, int *i)
@@ -68,10 +68,12 @@ int		analyze(const char *format, va_list ap, int *i)
 	}
 	tmp->arg = print_arg(tmp, ap);
 	tmp->arg = (tmp->arg == NULL) ? tmp->arg = "(null)" : tmp->arg;
+	if (tmp->type == '\0')
+		return (0);
 	*i += tmp->pad;
 	//debug(tmp);
-	//if (tmp->arg[0] == '0' && (!tmp->prec && !tmp->width) && ft_strchr("diuoOxX", tmp->type))
-	//	return (0);
+	if ((tmp->type == 'c' || tmp->type == 'C') && tmp->arg[0] == 0)
+		return (1);
 	return (write(1, tmp->arg, (int)ft_strlen(tmp->arg)));
 }
 
