@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 20:00:55 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/26 16:14:28 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/26 20:56:11 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,25 @@ void	putnbr_l(long n, t_argmnt *tmp)
 		ft_strjoin(tmp->arg, ft_itoa(n + '0'));
 }
 
-int isflag (t_flags flag)
+int nb_flags(t_flags f)
+{
+	int i;
+
+	i = 0;
+	if (f.hash)
+		i++;
+	if (f.zero)
+		i++;
+	if (f.minus)
+		i++;
+	if (f.plus)
+		i++;
+	if (f.space)
+		i++;
+	return (i);
+}
+
+int isflag(t_flags flag)
 {
 	if (flag.hash || flag.zero || flag.minus || flag.plus || flag.space)
 		return (1);

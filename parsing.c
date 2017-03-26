@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 21:37:00 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/26 20:42:54 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/26 21:09:17 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void		parse_flags(const char *chr, t_argmnt *tmp, int i)
 	int j;
 
 	j = i;
-	while ((chr[j] != ' ' || (chr[j] == ' ' && chr[j - 1] == '%')) && !ft_isdigit(chr[j - 1]))
+	while (((chr[j] != ' ' && chr[j] != '%')|| (chr[j] == ' ' && chr[j - 1] == '%')) && !ft_isdigit(chr[j - 1]))
 	{
 		if (chr[j] == '#')
 			tmp->flag.hash  = 1;
@@ -155,7 +155,8 @@ void		parse_flags(const char *chr, t_argmnt *tmp, int i)
 		j++;
 	}
 	j = 0;
-	(isflag(tmp->flag)) ? tmp->pad ++ : tmp->pad;
+	//printf("WESH: %d\n", nb_flags(tmp->flag));
+	(nb_flags(tmp->flag) > 0) ? tmp->pad += nb_flags(tmp->flag) : tmp->pad;
 	(tmp->type == 's' && tmp->flag.plus == 1) ? tmp->flag.plus = 0 : tmp->pad;
 	parse_width(chr, tmp, i);
 }

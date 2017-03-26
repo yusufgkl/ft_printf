@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 20:43:58 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/26 16:13:55 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/26 20:52:37 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void					putnbr_l(long n, t_argmnt *tmp);
 char					*ft_wputchar(wchar_t c);
 char					*ft_ultoa(unsigned long n);
 void					modif_ouxX(t_argmnt *tmp, va_list ap);
-char *ft_print_special(wint_t c);
+char					*ft_print_special(wint_t c);
+int						nb_flags(t_flags f);
 
 #endif
