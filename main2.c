@@ -9,13 +9,13 @@ int main()
 	i = 0;
 	j = 0;
 	
-	i = ft_printf("%zu, %zu", 0, ULLONG_MAX);
+	i = ft_printf("% u", 9999);
 	
 	
 	printf("\n -- -- -- --\n");
 	
 	
-	j = printf("%zu, %zu", 0, ULLONG_MAX);
+	j = printf("% u", 9999);
 	
 	
 	printf("\n\n");
