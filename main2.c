@@ -10,9 +10,9 @@ int main()
 	char *nul = "\0";
 	i = 0;
 	j = 0;
-	i = ft_printf("%.d, %.0d", 0, 0);
+	i = ft_printf("%c", 0);
 	printf("\n -- -- -- --\n");
-	j = printf("%.d, %.0d", 0, 0);
+	j = printf("%c", 0);
 	printf("\n\n");
 	printf("\n\nft_printf:	%d\nprintf:		%d\n", i, j);
 	return (0);

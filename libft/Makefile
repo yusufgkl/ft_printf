@@ -68,7 +68,6 @@ SRC = ./ft_atoi.c\
 	  ./ft_toupper.c\
 	  ./ft_numlen.c\
 	  ./ft_charblank.c\
-	  ./ft_thuglife.c\
 	  ./ft_strblank.c\
 	  ./ft_tablen.c\
 	  ./ft_lstadd.c\
@@ -134,7 +133,6 @@ OBJ = ./ft_atoi.o\
 	  ./ft_toupper.o\
 	  ./ft_numlen.o\
 	  ./ft_charblank.o\
-	  ./ft_thuglife.o\
 	  ./ft_strblank.o\
 	  ./ft_tablen.o\
 	  ./ft_lstadd.o\

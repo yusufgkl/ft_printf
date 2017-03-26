@@ -61,7 +61,6 @@ char					*fill_char(int i, char c);
 void					putnbr_l(long n, t_argmnt *tmp);
 void					modif_di(t_argmnt *tmp, va_list ap);
 char					*ctostr(char c);
-char					*ft_print_special(wint_t c);
 char					*width_di(t_argmnt *tmp);
 
 void					print_arg_modif(t_argmnt *tmp, va_list ap);
@@ -71,5 +70,6 @@ int						isflag (t_flags flag);
 char					*print_arg(t_argmnt *tmp, va_list ap);
 char					*ft_ltoa(long n);
 void					putnbr_l(long n, t_argmnt *tmp);
+char*		ft_wputchar(wchar_t c);
 
 #endif

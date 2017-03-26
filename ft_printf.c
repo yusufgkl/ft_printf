@@ -70,7 +70,7 @@ int		analyze(const char *format, va_list ap, int *i)
 	tmp->arg = (tmp->arg == NULL) ? tmp->arg = "(null)" : tmp->arg;
 	*i += tmp->pad;
 	//debug(tmp);
-	//if (tmp->arg[0] == '0' && (!tmp->prec || !tmp->width) && ft_strchr("dDiuUoOxXp", tmp->type))
+	//if (tmp->arg[0] == '0' && (!tmp->prec && !tmp->width) && ft_strchr("diuoOxX", tmp->type))
 	//	return (0);
 	return (write(1, tmp->arg, (int)ft_strlen(tmp->arg)));
 }

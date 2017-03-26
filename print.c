@@ -35,7 +35,9 @@ void print_arg_prec(t_argmnt *tmp)
 {
 	int size;
 	size = 0;
-	if (tmp->prec > 0 && tmp->type != 's' && tmp->type != 'S')
+	if (tmp->arg[0] == '0' && (!tmp->prec && !tmp->width) && ft_strchr("diuoOxX", tmp->type))
+		tmp->arg = NULL;
+	else if (tmp->prec > 0 && tmp->type != 's' && tmp->type != 'S')
 	{
 		size = (tmp->prec - (int)ft_strlen(tmp->arg));
 		if (size > 0 && tmp->prec > 0)
@@ -92,29 +94,29 @@ void print_arg_flag(t_argmnt *tmp)
 		tmp->arg = ft_strjoin("-", tmp->arg);
 }
 
-
 char *ft_wputstr(wchar_t *s)
 {
 	int i;
 	char *ret;
-	ret = malloc(sizeof(char) * 100);
 	i = 0;
-	while (s[i] != '\0')
+	ret = malloc(sizeof(wchar_t*) * 100);
+	while (s[i])
 	{
-		ret = ft_strjoin(ret, ft_print_special(s[i]));
+		ret = ft_strcat(ret, ft_wputchar((wchar_t)s[i]));
 		i++;
 	}
 	return (ret);
 }
 
+
 void		print_arg_type(t_argmnt *tmp, va_list ap)
 {
 	if (tmp->modif)
 		print_arg_modif(tmp, ap);
-	if (tmp->type == 's')
+	if (tmp->type == 's' || tmp->type == 'S')
 		tmp->arg = va_arg(ap, char*);
-	if (tmp->type == 'S')
-		tmp->arg = va_arg(ap, char*);
+	//if (tmp->type == 'S')
+	//	tmp->arg = ft_wputstr(va_arg(ap, wchar_t *));
 	if (tmp->type == 'u')
 		tmp->arg = itoabase((unsigned int)va_arg(ap, unsigned long), 10);
 	if (tmp->type == 'U')
@@ -122,9 +124,9 @@ void		print_arg_type(t_argmnt *tmp, va_list ap)
 	if (tmp->type == 'D')
 		tmp->arg = ft_itoa(va_arg(ap, long));
 	if (tmp-> type == 'c')
-		tmp->arg = ctostr(va_arg(ap, unsigned int));
+		tmp->arg = ctostr((unsigned char)va_arg(ap, int));
 	if (tmp-> type == 'C')
-		tmp->arg = ft_print_special((wchar_t)va_arg(ap, wchar_t));
+		tmp->arg = ft_wputchar(va_arg(ap, wchar_t));
 	if (tmp->type == 'p')
 		tmp->arg = ft_strjoin("0x", conv_p((va_arg(ap, long))));
 	if (tmp->type == 'x')
