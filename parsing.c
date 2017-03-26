@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 21:37:00 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/26 13:47:54 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/26 15:57:37 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ void		parse_type2(char chr, t_argmnt *tmp)
 		tmp->type = 'c';
 	else if (chr == 'C')
 		tmp->type = 'C';
-	else if (chr == '%')
-		tmp->type = '%';
 	else if (chr == 'b')
 		tmp->type = 'b';
 	else if (chr == 'U')
@@ -97,6 +95,9 @@ void		parse_type(const char* chr, t_argmnt *tmp, int i)
 			tmp->type = 'D';
 		else if (chr[x] == 'i')
 			tmp->type = 'i';
+		//else if (chr[x] == '%')
+		//	tmp->type = '%';
+
 		//else if (ft_isalpha(chr[x]))
 		//	tmp->type = chr[x];
 		x++;

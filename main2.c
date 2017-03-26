@@ -1,19 +1,26 @@
-#include "ft_printf.h"
 #include "libft.h"
+#include "ft_printf.h"
 #include <limits.h>
 
 int main()
 {
 	int i;
 	int j;
-	int x = 42;
-	char *nul = "\0";
 	i = 0;
 	j = 0;
-	i = ft_printf("%c", 0);
+	
+	i = ft_printf("%zu, %zu", 0, ULLONG_MAX);
+	
+	
 	printf("\n -- -- -- --\n");
-	j = printf("%c", 0);
+	
+	
+	j = printf("%zu, %zu", 0, ULLONG_MAX);
+	
+	
 	printf("\n\n");
+	
+	
 	printf("\n\nft_printf:	%d\nprintf:		%d\n", i, j);
 	return (0);
 }

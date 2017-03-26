@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 20:00:55 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/26 13:45:28 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/26 16:14:28 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "ft_printf.h"
 #include <limits.h>
 
-char *ctostr(unsigned char c)
+char *ctostr(char c)
 {
 	char *str;
 	str = (char*)malloc(sizeof(char) * 2);
@@ -50,16 +50,7 @@ char* itoabase(unsigned int num, int base)
 
 	str = malloc(sizeof(char)* (ft_numlen(num) + 2));
 	if (num == 0)
-	{
-		str[i++] = '0';
-		str[i] = '\0';
-		return str;
-	}
-	/*if (num < 0 && base == 10)
-	{
-		isNegative = 1;
-		num = -num;
-	}*/
+		return ("0");
 	while (num != 0)
 	{
 		int rem = num % base;
@@ -183,10 +174,12 @@ char		*ft_ultoa(unsigned long n)
 	unsigned long	nlen;
 	unsigned long	a;
 	char			*ret;
-	if (n >= ULONG_MAX)
+	if (n >= ULONG_MAX || n >= ULLONG_MAX)
 		return ("18446744073709551615");
-	if (n == ULONG_MAX/2)
+	else if (n == ULONG_MAX/2)
 		return ("9223372036854775807");
+	else if (n == 0)
+		return ("0");
 	nlen = ft_numlen(n);
 	if ((ret = (char*)malloc(sizeof(*ret) * (nlen + 2))) == NULL)
 		return (NULL);
@@ -214,19 +207,21 @@ char		*ft_ltoa(long n)
 		return ("-9223372036854775808");
 	else if (n >= 9223372036854775807)
 		return ("9223372036854775807");
+	else if (n < INT_MIN)
+		return ("-2147483649");
 	nlen = ft_numlen(n);
 	if ((ret = (char*)malloc(sizeof(*ret) * (nlen + 2))) == NULL)
 		return (NULL);
 	ret[nlen + 1] = '\0';
 	a = 1;
-	if (n == 0)
+	if (n == 0 && n)
 		ret[0] = '0';
 	if (n < 0)
 	{
 		a = -1;
 		ret[0] = '-';
 	}
-	while (nlen != 0)
+	while (nlen > 0)
 	{
 		ret[nlen--] = a * (n % 10) + '0';
 		n /= 10;

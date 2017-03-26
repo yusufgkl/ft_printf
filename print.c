@@ -71,7 +71,7 @@ void print_arg_width(t_argmnt *tmp)
 
 void print_arg_modif(t_argmnt *tmp, va_list ap)
 {
-	if ((tmp->type == 'd' || tmp->type == 'i'))
+	if (ft_strchr("di", tmp->type))
 		modif_di(tmp, ap);
 	if (ft_strchr("ouxX", tmp->type))
 		modif_ouxX(tmp, ap);
@@ -121,7 +121,7 @@ void		print_arg_type(t_argmnt *tmp, va_list ap)
 	if (tmp->type == 'D')
 		tmp->arg = ft_ltoa(va_arg(ap, long));
 	if (tmp-> type == 'c')
-		tmp->arg = ctostr((unsigned char)va_arg(ap, int));
+		tmp->arg = ctostr((char)va_arg(ap, int));
 	if (tmp-> type == 'C')
 		tmp->arg = ft_wputchar(va_arg(ap, wchar_t));
 	if (tmp->type == 'p')

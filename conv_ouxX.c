@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 16:32:11 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/26 13:53:30 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/26 16:10:56 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void modif_ouxX(t_argmnt *tmp, va_list ap)
 	if (!ft_strcmp(tmp->modif, "hh"))
 		tmp->arg = ft_itoa((unsigned short)va_arg(ap, int));
 	else if (!ft_strcmp(tmp->modif, "l"))
-		tmp->arg = ft_ltoa((unsigned long)va_arg(ap, unsigned long));
+		tmp->arg = ft_ultoa((unsigned long)va_arg(ap, unsigned long));
 	else if (!ft_strcmp(tmp->modif, "ll"))
-		tmp->arg = itoa_h((unsigned long long)va_arg(ap, unsigned long long), 10);
+		tmp->arg = ft_ultoa((unsigned long long)va_arg(ap, unsigned long long));
 	else if (!ft_strcmp(tmp->modif, "j"))
-		tmp->arg = itoa_h((uintmax_t)va_arg(ap, uintmax_t), 10);
+		tmp->arg = ft_ultoa(va_arg(ap, uintmax_t));
 	else if (!ft_strcmp(tmp->modif, "z"))
-		tmp->arg = itoa_h((size_t)va_arg(ap, size_t), 10);
+		tmp->arg = ft_ultoa(va_arg(ap, size_t));
 }
 
 char	*conv_o(unsigned long long n)

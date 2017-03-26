@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 20:43:58 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/26 13:49:39 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/26 16:13:55 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char					*flag_zero(t_argmnt *tmp, int size);
 char					*fill_char(int i, char c);
 void					putnbr_l(long n, t_argmnt *tmp);
 void					modif_di(t_argmnt *tmp, va_list ap);
-char					*ctostr(unsigned char c);
+char					*ctostr(char c);
 char					*width_di(t_argmnt *tmp);
 
 void					print_arg_modif(t_argmnt *tmp, va_list ap);
@@ -73,5 +73,6 @@ void					putnbr_l(long n, t_argmnt *tmp);
 char					*ft_wputchar(wchar_t c);
 char					*ft_ultoa(unsigned long n);
 void					modif_ouxX(t_argmnt *tmp, va_list ap);
+char *ft_print_special(wint_t c);
 
 #endif
