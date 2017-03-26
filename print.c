@@ -83,7 +83,7 @@ void print_arg_flag(t_argmnt *tmp)
 		flag_hashtg(tmp);
 	else if (tmp->flag.zero && !tmp->width)
 		tmp->arg = ft_strjoin(ctostr('0'), tmp->arg);
-	else if (tmp->flag.space && tmp->arg[0] != '-' && !tmp->flag.plus && ft_strchr("di", tmp->type))
+	else if (tmp->flag.space && tmp->arg[0] != '-' && !tmp->flag.plus && ft_strchr("dDi", tmp->type))
 		tmp->arg = ft_strjoin(ctostr(' '), tmp->arg);
 	else if (tmp->flag.plus && tmp->arg[0] != '-' && ft_strchr("di", tmp->type))
 		tmp->arg = ft_strjoin("+", tmp->arg);
@@ -146,7 +146,7 @@ char *print_arg(t_argmnt *tmp, va_list ap)
 {
 	if (tmp->type != '\0')
 		print_arg_type(tmp, ap);
-	if (isflag(tmp->flag))
+	if (isflag(tmp->flag) && tmp->arg)
 		print_arg_flag(tmp);
 	if (tmp->prec >= 0)
 		print_arg_prec(tmp);

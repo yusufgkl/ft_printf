@@ -9,13 +9,13 @@ int main()
 	i = 0;
 	j = 0;
 	char *nul = NULL;
-	i = ft_printf("{%03c}", 0);
+	i = ft_printf("{% s}", nul);
 	
 	
 	printf("\n -- -- -- --\n");
 	
 	
-	j = printf("{%03c}", 0);
+	j = printf("{% s}", nul);
 	
 	
 	printf("\n\n");
