@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 21:37:00 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/26 15:57:37 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/26 20:42:54 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ void		parse_flags(const char *chr, t_argmnt *tmp, int i)
 	}
 	j = 0;
 	(isflag(tmp->flag)) ? tmp->pad ++ : tmp->pad;
+	(tmp->type == 's' && tmp->flag.plus == 1) ? tmp->flag.plus = 0 : tmp->pad;
 	parse_width(chr, tmp, i);
 }
 /*

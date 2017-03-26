@@ -8,14 +8,14 @@ int main()
 	int j;
 	i = 0;
 	j = 0;
-	
-	i = ft_printf("% u", 9999);
+	char *nul = NULL;
+	i = ft_printf("%+s", nul);
 	
 	
 	printf("\n -- -- -- --\n");
 	
 	
-	j = printf("% u", 9999);
+	j = printf("%+s", nul);
 	
 	
 	printf("\n\n");
