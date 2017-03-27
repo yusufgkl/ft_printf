@@ -72,6 +72,7 @@ int		analyze(const char *format, va_list ap, int *i)
 		return (0);
 	*i += tmp->pad;
 	//debug(tmp);
+	free(tmp);
 	if ((tmp->type == 'c' || tmp->type == 'C') && tmp->arg[0] == 0)
 		return (1);
 	return (write(1, tmp->arg, (int)ft_strlen(tmp->arg)));
