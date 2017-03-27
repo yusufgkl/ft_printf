@@ -6,13 +6,15 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 16:23:09 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/27 18:58:31 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/27 17:12:06 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "libft.h"
+#include "ft_printf.h"
+#include <limits.h>
 
-char		*width_di(t_argmnt *tmp)
+char *width_di(t_argmnt *tmp)
 {
 	if (tmp->width && !isflag(tmp->flag))
 		return (ft_strjoin(fill_char((tmp->width - (int)ft_strlen(tmp->arg))
@@ -21,11 +23,11 @@ char		*width_di(t_argmnt *tmp)
 		return (tmp->arg);
 }
 
-char		*kill_zero(char *str)
+char *kill_zero(char *str)
 {
-	int		i;
-	int		j;
-	char	*ret;
+	int i;
+	int j;
+	char *ret;
 
 	ret = NULL;
 	i = 1;
@@ -45,7 +47,7 @@ char		*kill_zero(char *str)
 	return (str);
 }
 
-void		modif_di(t_argmnt *tmp, va_list ap)
+void modif_di(t_argmnt *tmp, va_list ap)
 {
 	if (!ft_strcmp(tmp->modif, "h"))
 		tmp->arg = ft_itoa((short)va_arg(ap, int));

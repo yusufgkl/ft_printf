@@ -6,13 +6,14 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/15 15:12:06 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/27 19:01:43 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/26 20:31:04 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
+#include "libft.h"
 
-void		flag_hashtg(t_argmnt *tmp)
+void flag_hashtg(t_argmnt *tmp)
 {
 	if (tmp->type == 'x' && tmp->arg[0] != '0')
 		tmp->arg = ft_strjoin("0x", tmp->arg);
@@ -22,10 +23,10 @@ void		flag_hashtg(t_argmnt *tmp)
 		tmp->arg = ft_strjoin("0", tmp->arg);
 }
 
-char		*fill_char(int i, char c)
+char *fill_char(int i, char c)
 {
-	char	*zero;
-	int		x;
+	char *zero;
+	int x;
 
 	x = 0;
 	zero = (char *)malloc(sizeof(char) * (i) + 1);
@@ -38,7 +39,7 @@ char		*fill_char(int i, char c)
 	return (zero);
 }
 
-char		*flag_zero(t_argmnt *tmp, int size)
+char *flag_zero(t_argmnt *tmp, int size)
 {
 	if (tmp->width || tmp->prec)
 	{

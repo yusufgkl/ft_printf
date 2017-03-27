@@ -1,44 +1,37 @@
 NAME = libftprintf.a
 
-CC = gcc
-
 SRC = ./ft_printf.c\
 	  ./flags.c\
 	  ./utils.c\
-	  ./utils2.c\
-	  ./utils3.c\
 	  ./parsing.c\
-	  ./parse2.c\
 	  ./conv_di.c\
-	  ./conv_ouxx.c\
+	  ./conv_ouxX.c\
 	  ./conv_p.c\
-	  ./conv_upc.c\
+	  ./conv_C.c\
 	  ./print.c\
-	  ./print2.c\
-	  ./print3.c\
-	  ./ft_atoi.c\
-	  ./ft_isalpha.c\
-	  ./ft_strcat.c\
-	  ./ft_strchr.c\
-	  ./ft_itoa.c\
-	  ./ft_strjoin.c\
-	  ./ft_isdigit.c\
-	  ./ft_strlen.c\
-	  ./ft_putstr.c\
-	  ./ft_strcmp.c\
-	  ./ft_strcpy.c\
-	  ./ft_strncpy.c\
-	  ./ft_toupper.c\
-	  ./ft_numlen.c\
-	  ./ft_charblank.c\
-	  ./ft_putchar.c\
+
+OBJC = ./ft_printf.o\
+	  ./flags.o\
+	  ./utils.o\
+	  ./parsing.o\
+	  ./conv_di.o\
+	  ./conv_ouxX.o\
+	  ./conv_p.o\
+	  ./conv_C.o\
+	  ./print.o\
 
 OBJ = $(SRC:.c=.o)
 
+OBJDIR = obj
+
 FLAGS = -Wall -Werror -Wextra
 
-INC = ./libftprintf.h\
-	  ./libft.h\
+INC = ./ft_printf.h\
+	./libft.h\
+
+FLAGS = -Wall -Wextra -Werror -Wpointer-to-int-cast
+
+LIBFT = libft/*.c
 
 DEF =		\033[0m
 GRA =		\033[1m
@@ -53,24 +46,28 @@ PUR =		\033[35m
 CYA =		\033[36m
 WHI =		\033[37m
 
+
 all: $(NAME)
+
 
 $(NAME): $(OBJ)
 	@echo "$(GRE)===== Compilation en cours =====$(DEF)";
-	@$(CC) $(FLAGS) -c $(SRC) -I $(INC)
-	@ar rc $(NAME) $(OBJ)
+	@clang $(FLAGS) -c $(SRC) $(LIBFT) -I $(INC)
+	@ar rc $(NAME) $(OBJ) ./libft/*.o
 	@ranlib $(NAME)
 	@echo "$(GRE)===== Compilation terminee =====$(DEF)";
 
 clean:
 	@echo "$(GRE)===== Nettoyage en cours   =====$(DEF)";
 	@rm -rf $(OBJ)
+	@rm -rf ./*.o
 	@echo "$(GRE)===== Nettoyage termine    =====$(DEF)";
 
 fclean:
 	@echo "$(GRE)===== Nettoyage en cours   =====$(DEF)";
 	@rm -rf $(NAME)
 	@rm -rf $(OBJ)
+	@rm -rf ./*.o
 	@echo "$(GRE)===== Nettoyage termine    =====$(DEF)";
 
 re:

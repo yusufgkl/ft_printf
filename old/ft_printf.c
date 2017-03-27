@@ -6,13 +6,27 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 17:54:40 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/27 19:08:23 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/27 17:01:22 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include <stdio.h>
+#include "ft_printf.h"
+#include "libft.h"
 
-t_argmnt		*init_struct(t_argmnt *tmp)
+int is_arg(char *s, int x)
+{
+	char *str = "sSpdDiOouUxXcC%";
+	int i;
+
+	i = 0;
+	while (str[i] != s[x] && str[i])
+		i++;
+	i = x;
+	return (0);
+}
+
+t_argmnt	*init_struct(t_argmnt *tmp)
 {
 	tmp->flag.hash = 0;
 	tmp->flag.zero = 0;
@@ -28,11 +42,17 @@ t_argmnt		*init_struct(t_argmnt *tmp)
 	return (tmp);
 }
 
-int				analyze(const char *format, va_list ap, int *i)
+void debug(t_argmnt *tmp)
+{
+
+	printf("\narg: |%s| \nflags: #: %d 0: %d -: %d +: %d space: %d \nprec: %d\nmodif: %s\ntype: %c\nwidth: %d\npadding: %d\n_ _ _ _ _\n", tmp->arg,tmp->flag.hash, tmp->flag.zero, tmp->flag.minus, tmp->flag.plus, tmp->flag.space, tmp->prec, (char*)tmp->modif, tmp->type, tmp->width, tmp->pad);
+}
+
+int		analyze(const char *format, va_list ap, int *i)
 {
 	t_argmnt	*tmp;
-	int			x;
-
+	int x;
+	
 	x = *i;
 	tmp = malloc(sizeof(t_argmnt));
 	tmp = init_struct(tmp);
@@ -47,16 +67,17 @@ int				analyze(const char *format, va_list ap, int *i)
 			x++;
 	}
 	tmp->arg = print_arg(tmp, ap);
-	(tmp->arg == NULL && !tmp->prec) ? tmp->arg = "(null)" : tmp->arg;
+	tmp->arg = (tmp->arg == NULL && !tmp->prec) ? tmp->arg = "(null)" : tmp->arg;
 	if (tmp->type == '\0')
 		return (0);
 	*i += tmp->pad;
+	//debug(tmp);
 	if ((tmp->type == 'c' || tmp->type == 'C') && tmp->arg[0] == 0)
 		return (1);
 	return (write(1, tmp->arg, (int)ft_strlen(tmp->arg)));
 }
 
-int				is_percent(const char *str, int i)
+int is_percent(const char *str, int i)
 {
 	if (str[i] == '%' && str[i + 1] == '%')
 	{
@@ -67,44 +88,28 @@ int				is_percent(const char *str, int i)
 		return (0);
 }
 
-int				ft_iswildcard(const char *str)
-{
-	int			i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '*' && str[i - 1] == '.')
-			return (1);
-		if (str[i] == '*' && str[i - 1] == '%')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int				ft_printf(const char *format, ...)
+int		ft_printf(const char *format, ...)
 {
 	va_list		ap;
-	int			i;
-	int			j;
+	int i;
+	int j;
 
+	va_start(ap, format);
 	i = 0;
 	j = 0;
-	if (!ft_strcmp(format, "%") || ft_iswildcard(format))
+	if (!ft_strcmp(format, "%"))
 		return (0);
 	if (!ft_strchr(format, '%'))
 	{
 		ft_putstr((char*)format);
 		return ((int)ft_strlen((char*)format));
 	}
-	va_start(ap, format);
 	while (format[i] && i <= (int)ft_strlen(format))
 	{
 		if (format[i] == '%' && format[i + 1] && !is_percent(format, i))
 			j += analyze(format, ap, &i);
 		else if (!is_percent(format, i))
-			j += write(1, &format[i], 1);
+			j += write(1,&format[i],1);
 		i++;
 	}
 	va_end(ap);

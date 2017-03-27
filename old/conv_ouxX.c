@@ -6,14 +6,19 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 16:32:11 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/27 19:00:03 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/27 17:13:18 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "libft.h"
+#include "ft_printf.h"
 
-void				modif_ouxx(t_argmnt *tmp, va_list ap)
+
+
+void modif_ouxX(t_argmnt *tmp, va_list ap)
 {
+	//if (!ft_strcmp(tmp->modif, "h"))
+	//	tmp->arg = ctostr((unsigned char)va_arg(ap, char*));
 	if (!ft_strcmp(tmp->modif, "hh") && ft_strchr("oOuU", tmp->type))
 		tmp->arg = ft_ultoa((unsigned char)va_arg(ap, unsigned int));
 	if (!ft_strcmp(tmp->modif, "l"))
@@ -26,11 +31,11 @@ void				modif_ouxx(t_argmnt *tmp, va_list ap)
 		tmp->arg = ft_ultoa(va_arg(ap, size_t));
 }
 
-char				*conv_o(unsigned long long n)
+char	*conv_o(unsigned long long n)
 {
-	char			*str;
-	int				size;
-	unsigned long	x;
+	char*str;
+	int size;
+	unsigned long long x;
 
 	x = n;
 	size = 0;
@@ -53,3 +58,5 @@ char				*conv_o(unsigned long long n)
 	}
 	return (str);
 }
+
+
