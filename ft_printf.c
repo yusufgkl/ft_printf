@@ -67,12 +67,11 @@ int		analyze(const char *format, va_list ap, int *i)
 			x++;
 	}
 	tmp->arg = print_arg(tmp, ap);
-	tmp->arg = (tmp->arg == NULL) ? tmp->arg = "(null)" : tmp->arg;
+	tmp->arg = (tmp->arg == NULL && !tmp->prec) ? tmp->arg = "(null)" : tmp->arg;
 	if (tmp->type == '\0')
 		return (0);
 	*i += tmp->pad;
 	//debug(tmp);
-	free(tmp);
 	if ((tmp->type == 'c' || tmp->type == 'C') && tmp->arg[0] == 0)
 		return (1);
 	return (write(1, tmp->arg, (int)ft_strlen(tmp->arg)));
@@ -107,7 +106,7 @@ int		ft_printf(const char *format, ...)
 	}
 	while (format[i] && i <= (int)ft_strlen(format))
 	{
-		if (format[i] == '%' && format[i + 1] != '\0' && !is_percent(format, i))
+		if (format[i] == '%' && format[i + 1] && !is_percent(format, i))
 			j += analyze(format, ap, &i);
 		else if (!is_percent(format, i))
 			j += write(1,&format[i],1);
