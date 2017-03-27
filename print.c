@@ -97,13 +97,18 @@ char *ft_wputstr(wchar_t *s)
 	int i;
 	char *ret;
 	i = 0;
-	ret = malloc(sizeof(wchar_t*) * 100);
-	while (s[i])
+	if (s)
 	{
-		ret = ft_strcat(ret, ft_wputchar((wchar_t)s[i]));
-		i++;
+		ret = malloc(sizeof(wchar_t*) * 100);
+		while (s[i])
+		{
+			ret = ft_strcat(ret, ft_wputchar((wchar_t)s[i]));
+			i++;
+		}
+		return (ret);
 	}
-	return (ret);
+	else
+		return (NULL);
 }
 
 
@@ -111,10 +116,10 @@ void		print_arg_type(t_argmnt *tmp, va_list ap)
 {
 	if (tmp->modif)
 		print_arg_modif(tmp, ap);
-	if (tmp->type == 's' || tmp->type == 'S')
+	if (tmp->type == 's')
 		tmp->arg = va_arg(ap, char*);
-	//if (tmp->type == 'S')
-	//	tmp->arg = ft_wputstr(va_arg(ap, wchar_t *));
+	if (tmp->type == 'S')
+		tmp->arg = ft_wputstr(va_arg(ap, wchar_t *));
 	if (tmp->type == 'u')
 		tmp->arg = itoabase((unsigned int)va_arg(ap, unsigned long), 10);
 	if (tmp->type == 'U')
@@ -147,7 +152,7 @@ char *print_arg(t_argmnt *tmp, va_list ap)
 {
 	if (tmp->type != '\0')
 		print_arg_type(tmp, ap);
-	if (isflag(tmp->flag) && tmp->arg)
+	if (isflag(tmp->flag) && tmp->arg && tmp->type != 'b')
 		print_arg_flag(tmp);
 	if (tmp->prec >= 0)
 		print_arg_prec(tmp);

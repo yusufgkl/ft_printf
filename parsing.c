@@ -20,10 +20,12 @@ void		parse_width(const char *chr, t_argmnt *tmp, int i)
 		x++;
 	while (ft_isdigit(chr[x]) && (chr[x - 1] != '.'))
 	{
-		if (ft_isdigit(chr[x]) == 1 && !ft_isdigit(chr[x + 1]) && !ft_isdigit(chr[x - 1]))
+		if (ft_isdigit(chr[x]) == 1 && !ft_isdigit(chr[x + 1])
+			&& !ft_isdigit(chr[x - 1]))
 			tmp->width = ft_atoi(&chr[x]);
 		if (ft_isdigit(chr[x]) && ft_isdigit(chr[x + 1]))
-			tmp->width = ft_atoi(ft_strjoin(ctostr(chr[x]), ctostr(chr[x + 1])));
+			tmp->width = ft_atoi(ft_strjoin(ctostr(chr[x]),
+			ctostr(chr[x + 1])));
 		x++;
 	}
 	x = 0;
@@ -95,11 +97,6 @@ void		parse_type(const char* chr, t_argmnt *tmp, int i)
 			tmp->type = 'D';
 		else if (chr[x] == 'i')
 			tmp->type = 'i';
-		//else if (chr[x] == '%')
-		//	tmp->type = '%';
-
-		//else if (ft_isalpha(chr[x]))
-		//	tmp->type = chr[x];
 		x++;
 	}
 	if (tmp->type == chr[x])
@@ -140,8 +137,9 @@ void		parse_flags(const char *chr, t_argmnt *tmp, int i)
 	int j;
 
 	j = i;
-	while (((chr[j] != ' ' && chr[j] != '%') ||
+	while ((((chr[j] != ' ' && chr[j] != '%') ||
 	(chr[j] == ' ' && chr[j - 1] == '%')) && !ft_isdigit(chr[j - 1]))
+	|| ft_strchr("#0- +", chr[j - 1]))
 	{
 		if (chr[j] == '#')
 			tmp->flag.hash  = 1;
@@ -160,32 +158,3 @@ void		parse_flags(const char *chr, t_argmnt *tmp, int i)
 	(tmp->type == 's' && tmp->flag.plus == 1) ? tmp->flag.plus = 0 : tmp->pad;
 	parse_width(chr, tmp, i);
 }
-/*
-void		parse_flags(const char *chr, t_argmnt *tmp, int i)
-{
-	int j;
-	int x;
-
-	j = i;
-	x = 0;
-
-	while ((chr[j] != ' ' || (chr[j] == ' ' && chr[j - 1] == '%')) && !ft_isdigit(chr[j - 1]))
-	{
-		if (chr[j] == '#')
-			tmp->flag[x] = '#';
-		if (chr[j] == '0')
-			tmp->flag[x] = '0';
-		if (chr[j] == '-')
-			tmp->flag[x] = '-';
-		if (chr[j] == '+')
-			tmp->flag[x] = '+';
-		if (chr[j] == ' ')
-			tmp->flag[x] = ' ';
-		j++;
-		x++;
-	}
-	j = 0;
-	(tmp->flag) ? tmp->pad ++ : tmp->pad;
-	parse_width(chr, tmp, i);
-}
-*/
