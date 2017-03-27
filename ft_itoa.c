@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 22:51:33 by ygokol            #+#    #+#             */
-/*   Updated: 2016/11/30 15:38:00 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/27 21:02:29 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char		*ft_itoa(int n)
 	int		nlen;
 	int		a;
 	char	*ret;
+
 	nlen = ft_numlen(n);
 	if ((ret = (char*)malloc(sizeof(*ret) * (nlen + 2))) == NULL)
 		return (NULL);
@@ -37,6 +38,5 @@ char		*ft_itoa(int n)
 			return (ret);
 	}
 	ret[nlen] = a * (n % 10) + '0';
-	ret[(int)ft_strlen(ret)] = '\0';
 	return (ret);
 }
