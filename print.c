@@ -79,11 +79,12 @@ void print_arg_modif(t_argmnt *tmp, va_list ap)
 
 void print_arg_flag(t_argmnt *tmp)
 {
-	if (tmp->flag.hash)
+	if (tmp->flag.hash && !ft_strchr("cdinpsu", tmp->type))
 		flag_hashtg(tmp);
 	else if (tmp->flag.zero && !tmp->width)
-		tmp->arg = ft_strjoin(ctostr('0'), tmp->arg);
-	else if (tmp->flag.space && tmp->arg[0] != '-' && !tmp->flag.plus && ft_strchr("dDi", tmp->type))
+		tmp->arg = ft_strjoin("0", tmp->arg);
+	else if (tmp->flag.space && tmp->arg[0] != '-' && 
+	!tmp->flag.plus && ft_strchr("dDi", tmp->type))
 		tmp->arg = ft_strjoin(ctostr(' '), tmp->arg);
 	else if (tmp->flag.plus && tmp->arg[0] != '-' && ft_strchr("di", tmp->type))
 		tmp->arg = ft_strjoin("+", tmp->arg);

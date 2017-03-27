@@ -15,11 +15,11 @@
 
 void flag_hashtg(t_argmnt *tmp)
 {
-	if (tmp->type == 'x')
+	if (tmp->type == 'x' && tmp->arg[0] != '0')
 		tmp->arg = ft_strjoin("0x", tmp->arg);
-	if (tmp->type == 'X')
+	if (tmp->type == 'X' && tmp->arg[0] != '0')
 		tmp->arg = ft_strjoin("0X", tmp->arg);
-	if ((tmp->type == 'o'|| tmp->type == 'd') && tmp->arg[0] != '0')
+	if (ft_strchr("oO", tmp->type) && tmp->arg[0] != '0')
 		tmp->arg = ft_strjoin("0", tmp->arg);
 }
 
