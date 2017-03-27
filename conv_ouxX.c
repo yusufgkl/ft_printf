@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 16:32:11 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/26 16:10:56 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/27 17:13:18 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void modif_ouxX(t_argmnt *tmp, va_list ap)
 {
 	//if (!ft_strcmp(tmp->modif, "h"))
 	//	tmp->arg = ctostr((unsigned char)va_arg(ap, char*));
-	if (!ft_strcmp(tmp->modif, "hh"))
-		tmp->arg = ft_itoa((unsigned short)va_arg(ap, int));
-	else if (!ft_strcmp(tmp->modif, "l"))
+	if (!ft_strcmp(tmp->modif, "hh") && ft_strchr("oOuU", tmp->type))
+		tmp->arg = ft_ultoa((unsigned char)va_arg(ap, unsigned int));
+	if (!ft_strcmp(tmp->modif, "l"))
 		tmp->arg = ft_ultoa((unsigned long)va_arg(ap, unsigned long));
 	else if (!ft_strcmp(tmp->modif, "ll"))
 		tmp->arg = ft_ultoa((unsigned long long)va_arg(ap, unsigned long long));

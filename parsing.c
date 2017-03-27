@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 21:37:00 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/26 21:09:17 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/27 17:14:57 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void		parse_prec(const char *chr, t_argmnt *tmp, int i)
 	tmp->prec = 0;
 	while ((chr[x] != ' ' || ft_isdigit(chr[x])))
 	{
-		if (chr[x] == '.' && (chr[x - 1] == '%'))
+		if (chr[x] == '.' && (chr[x - 1] == '%' || chr[x + 1] == tmp->type))
 			tmp->pad++;
 		if (ft_isdigit(chr[x]) == 1 && chr[x - 1] == '.')
 			tmp->prec = (int)ft_atoi(&chr[x]);
@@ -97,10 +97,10 @@ void		parse_type(const char* chr, t_argmnt *tmp, int i)
 			tmp->type = 'D';
 		else if (chr[x] == 'i')
 			tmp->type = 'i';
+		else if (tmp->type == chr[x] && !ft_strchr("dDioOuUxXpbicCsS", tmp->type))
+			tmp->arg = ctostr(chr[x]);
 		x++;
 	}
-	if (tmp->type == chr[x])
-		tmp->arg = ctostr(chr[x]);
 
 	x = 0;
 	(tmp->type) ? tmp->pad++ : tmp->pad;

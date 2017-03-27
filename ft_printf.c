@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 17:54:40 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/26 20:59:35 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/03/27 17:01:22 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int		ft_printf(const char *format, ...)
 	i = 0;
 	j = 0;
 	if (!ft_strcmp(format, "%"))
-		return (-1);
+		return (0);
 	if (!ft_strchr(format, '%'))
 	{
 		ft_putstr((char*)format);

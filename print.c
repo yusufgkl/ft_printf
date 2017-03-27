@@ -17,6 +17,43 @@ char *s_prec(char *str, int prec)
 	}
 }
 
+char *kill_plus(char *str)
+{
+	int i;
+	int j;
+	char *ret;
+
+	ret = NULL;
+	i = 1;
+	j = 0;
+	if (str[0] == '+' && str[1])
+	{
+		ret = malloc(sizeof(char) * ((int)ft_strlen(str) - 1));
+		ret[0] = str[i];
+		while (str[i] != '\0')
+		{
+			ret[j] = str[i];
+			i++;
+			j++;
+		}
+		return (ret);
+	}
+	return (str);
+}
+char *prec_plus(t_argmnt *tmp)
+{
+	char *ret;
+	int size;
+
+	size = 0;
+	ret = kill_plus(tmp->arg);
+	size = (tmp->prec - (int)ft_strlen(ret));
+	if (size > 0 && tmp->prec > 0)
+		ret = ft_strjoin(fill_char(size, '0'), ret);
+	return (ft_strjoin("+", ret));
+
+}
+
 char *prec_neg(t_argmnt *tmp)
 {
 	char *ret;
@@ -28,7 +65,6 @@ char *prec_neg(t_argmnt *tmp)
 	if (size > 0 && tmp->prec > 0)
 		ret = ft_strjoin(fill_char(size, '0'), ret);
 	return (ft_strjoin("-", ret));
-
 }
 
 void print_arg_prec(t_argmnt *tmp)
@@ -42,6 +78,8 @@ void print_arg_prec(t_argmnt *tmp)
 		{
 			if (tmp->arg[0] == '-')
 				tmp->arg = prec_neg(tmp);
+			else if (tmp->arg[0] == '+')
+				tmp->arg = prec_plus(tmp);
 			else
 				tmp->arg = ft_strjoin(fill_char(size, '0'), tmp->arg);
 		}
@@ -111,13 +149,22 @@ char *ft_wputstr(wchar_t *s)
 		return (NULL);
 }
 
+char *ft_str(char *s, t_argmnt *tmp)
+{
+	if (s)
+		return (s);
+	else if (!s && (tmp->prec || tmp->width))
+		return ("");
+	else
+		return (NULL);
+}
 
 void		print_arg_type(t_argmnt *tmp, va_list ap)
 {
 	if (tmp->modif)
 		print_arg_modif(tmp, ap);
 	if (tmp->type == 's')
-		tmp->arg = va_arg(ap, char*);
+		tmp->arg = ft_str(va_arg(ap, char*), tmp);
 	if (tmp->type == 'S')
 		tmp->arg = ft_wputstr(va_arg(ap, wchar_t *));
 	if (tmp->type == 'u')

@@ -14,8 +14,14 @@ int		main(int ac, char **av)
 	char	*str;
 	char	c;
 
-	setlocale(LC_ALL, "");
 	(void)ac;
+	char *s = "La moulinette est ma bitch\n";
+	printf("--Sring simple--\n");
+	n = 16;
+	i = ft_printf("Mon printf  : %s\n", s);
+	j = printf("Vrai printf : %s\n", s);
+	printf("Moi %d Le vrai : %d\n", i, j);
+
 	printf("--16 en hexa--\n");
 	n = 16;
 	i = ft_printf("Mon printf  : %x\n", n);
@@ -81,13 +87,6 @@ int		main(int ac, char **av)
 	j = printf("Vrai printf : %010y\n");
 	printf("Moi %d Le vrai : %d\n", i, j);
 
-	printf("\n-- %%n --\n");
-	j = printf("Vrai printf : %5n\n", &i2);
-	printf("%d\n", i2);
-	i = ft_printf("Mon printf  : %5n\n", &i1);
-	printf("%d\n", i1);
-	printf("Moi %d Le vrai : %d\n", i, j);
-
 	printf("\n-- int with + and precision --\n");
 	n = 13;
 	i = ft_printf("Mon printf  : %+.5d\n", n);
@@ -148,25 +147,12 @@ int		main(int ac, char **av)
 	j = printf("%");
 	printf("Moi %d Le vrai : %d\n", i, j);
 
-	printf("\n-- %%+n --\n");
-	i = ft_printf("%+10.0d\n", 0);
-	j = printf("%+10.0d\n", 0);
-	printf("Moi %d Le vrai : %d\n", i, j);
 
-	printf("\n-- %%f --\n");
-	i = ft_printf("{%f}{%F}\n", 1.42, 1.42);
-	j = printf("{%f}{%F}\n", 1.42, 1.42);
-	printf("Moi %d Le vrai : %d\n", i, j);
 
-	printf("\n-- %%Lf --\n");
-	long double ld = 46.646;
-	i = ft_printf("{%f}\n{%F}\n", 1444565444646.6465424242242, 1444565444646.6465424242242);
-	j = printf("{%f}\n{%F}\n", 1444565444646.6465424242242, 1444565444646.6465424242242);
-	printf("Moi %d Le vrai : %d\n", i, j);
 
-	printf("\n-- %%S 414 --\n");
-	i = ft_printf("%lc\n", 414);
-	j = printf("%lc\n", 414);
-	printf("Moi %d Le vrai : %d\n", i, j);
+
+
+
+	
 
 }
