@@ -48,15 +48,15 @@ char		*kill_zero(char *str)
 void		modif_di(t_argmnt *tmp, va_list ap)
 {
 	if (!ft_strcmp(tmp->modif, "h"))
-		tmp->arg = ft_itoa((short)va_arg(ap, int));
+		tmp->arg = ft_itoa((short int)va_arg(ap, int));
 	if (!ft_strcmp(tmp->modif, "hh"))
-		tmp->arg = ft_itoa((char)va_arg(ap, int));
+		tmp->arg = ft_itoa((char)va_arg(ap, long long int));
 	if (!ft_strcmp(tmp->modif, "l"))
-		tmp->arg = kill_zero(itoabase(va_arg(ap, long), 10));
+		tmp->arg = kill_zero(itoabase(va_arg(ap, long int), 10));
 	if (!ft_strcmp(tmp->modif, "ll"))
-		tmp->arg = ft_ltoa(va_arg(ap, long long));
+		tmp->arg = ft_ltoa(va_arg(ap, long long int));
 	if (!ft_strcmp(tmp->modif, "j"))
 		tmp->arg = ft_ltoa(va_arg(ap, intmax_t));
 	if (!ft_strcmp(tmp->modif, "z"))
-		tmp->arg = ft_ltoa(va_arg(ap, ssize_t));
+		tmp->arg = ft_ltoa(va_arg(ap, size_t));
 }

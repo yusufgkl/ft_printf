@@ -74,7 +74,7 @@ void		print_arg_type(t_argmnt *tmp, va_list ap)
 	if (tmp->type == 'u')
 		tmp->arg = itoabase((unsigned int)va_arg(ap, unsigned long), 10);
 	if (tmp->type == 'U')
-		tmp->arg = ft_ultoa(va_arg(ap, unsigned long));
+		tmp->arg = ft_ultoa(va_arg(ap, uintmax_t));
 	if (tmp->type == 'D')
 		tmp->arg = ft_ltoa(va_arg(ap, long));
 	if (tmp->type == 'c')
