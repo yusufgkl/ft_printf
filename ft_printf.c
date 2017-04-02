@@ -6,7 +6,7 @@
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/02 15:36:02 by ygokol            #+#    #+#             */
-/*   Updated: 2017/04/02 15:36:04 by ygokol           ###   ########.fr       */
+/*   Updated: 2017/04/02 19:53:18 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		add_new(t_printf *elem, va_list *ap)
 	return (0);
 }
 
-int		ft_find_per(va_list *ap, t_printf *elem, int *i, char *format)
+int		ft_find_arg(va_list *ap, t_printf *elem, int *i, char *format)
 {
 	if (elem == NULL)
 		elem = create_type(format, i, ap);
@@ -62,24 +62,21 @@ int		ft_printf(const char *format, ...)
 	t_printf	*elem;
 	int			i;
 	int			ret;
-	char		*test;
+	char		*tmp;
 
 	i = 0;
-	test = ft_strdup(format);
+	tmp = ft_strdup(format);
 	va_start(ap, format);
 	elem = NULL;
 	ret = 0;
 	while (format[i])
 	{
 		if (format[i] == '%')
-			ret += ft_find_per(&ap, elem, &i, (char *)format);
+			ret += ft_find_arg(&ap, elem, &i, (char *)format);
 		else if (format[i] == '{')
-			i = ft_colors(test, i);
+			i = ft_colors(tmp, i);
 		else
-		{
-			ft_putchar(test[i++]);
-			ret++;
-		}
+			ret += write(1, &tmp[i++], 1);
 	}
 	va_end(ap);
 	return (ret);
