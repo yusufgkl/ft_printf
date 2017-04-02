@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/03 12:21:41 by ygokol            #+#    #+#             */
-/*   Updated: 2017/04/02 16:07:36 by ygokol           ###   ########.fr       */
+/*   Created: 2016/11/11 22:53:21 by ygokol            #+#    #+#             */
+/*   Updated: 2016/11/16 18:54:53 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <string.h>
 
-void	ft_putstr(char *str)
+char	*ft_strchr(const char *s, int c)
 {
-	if (str != NULL)
-		write(1, str, ft_strlen(str));
-	else
-		return ;
+	int i;
+
+	i = 0;
+	while (s[i] != (char)c && s[i] != '\0')
+		i++;
+	if (s[i] == c)
+		return ((char*)(s + i));
+	return (NULL);
 }

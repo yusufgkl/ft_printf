@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/03 12:21:41 by ygokol            #+#    #+#             */
-/*   Updated: 2017/04/02 16:07:36 by ygokol           ###   ########.fr       */
+/*   Created: 2016/11/07 17:45:04 by ygokol            #+#    #+#             */
+/*   Updated: 2016/11/14 21:20:13 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
-void	ft_putstr(char *str)
+char	*ft_strcpy(char *dest, const char *src)
 {
-	if (str != NULL)
-		write(1, str, ft_strlen(str));
-	else
-		return ;
+	size_t i;
+
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }

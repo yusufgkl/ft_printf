@@ -1,21 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/03 12:21:41 by ygokol            #+#    #+#             */
-/*   Updated: 2017/04/02 16:07:36 by ygokol           ###   ########.fr       */
+/*   Created: 2016/11/09 16:03:16 by ygokol            #+#    #+#             */
+/*   Updated: 2017/03/15 19:26:53 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr(char *str)
+char		*ft_strjoin(char *s1, const char *s2)
 {
-	if (str != NULL)
-		write(1, str, ft_strlen(str));
+	int		i;
+	int		j;
+	char	*join;
+
+	if (!s1 || !s2)
+		return (NULL);
+	j = 0;
+	i = ft_strlen(s1);
+	if ((join = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)))))
+	{
+		ft_strcpy(join, s1);
+		while (s2[j] != '\0')
+		{
+			join[i] = s2[j];
+			i++;
+			j++;
+		}
+		join[i] = '\0';
+		return (join);
+	}
 	else
-		return ;
+		return (NULL);
 }

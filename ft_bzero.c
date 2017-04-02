@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   bzero.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/03 12:21:41 by ygokol            #+#    #+#             */
-/*   Updated: 2017/04/02 16:07:36 by ygokol           ###   ########.fr       */
+/*   Created: 2016/11/07 19:46:58 by ygokol            #+#    #+#             */
+/*   Updated: 2017/01/28 20:02:35 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr(char *str)
+void	ft_bzero(void *s, size_t n)
 {
-	if (str != NULL)
-		write(1, str, ft_strlen(str));
-	else
-		return ;
+	size_t i;
+
+	i = 0;
+	while (i < n)
+	{
+		((char *)s)[i] = '\0';
+		i++;
+	}
 }

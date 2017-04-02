@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/03 12:21:41 by ygokol            #+#    #+#             */
-/*   Updated: 2017/04/02 16:07:36 by ygokol           ###   ########.fr       */
+/*   Created: 2016/11/03 12:38:35 by ygokol            #+#    #+#             */
+/*   Updated: 2016/11/28 11:39:34 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr(char *str)
+size_t	ft_strlen(const char *str)
 {
-	if (str != NULL)
-		write(1, str, ft_strlen(str));
-	else
-		return ;
+	size_t i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		i = i + 1;
+	}
+	return (i);
 }

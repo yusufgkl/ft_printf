@@ -1,21 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/03 12:21:41 by ygokol            #+#    #+#             */
-/*   Updated: 2017/04/02 16:07:36 by ygokol           ###   ########.fr       */
+/*   Created: 2016/11/08 22:51:33 by ygokol            #+#    #+#             */
+/*   Updated: 2017/03/27 21:12:49 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr(char *str)
+char		*ft_itoa(int n)
 {
-	if (str != NULL)
-		write(1, str, ft_strlen(str));
-	else
-		return ;
+	int		nlen;
+	int		a;
+	char	*ret;
+
+	nlen = ft_numlen(n);
+	if ((ret = (char*)malloc(sizeof(*ret) * (nlen + 2))) == NULL)
+		return (NULL);
+	ret[nlen + 1] = '\0';
+	a = 1;
+	if (n == 0)
+		ret[0] = '0';
+	if (n < 0)
+	{
+		a = -1;
+		ret[0] = '-';
+	}
+	while (nlen != 0)
+	{
+		ret[nlen--] = a * (n % 10) + '0';
+		n /= 10;
+		if (ret[nlen] == '-')
+			return (ret);
+	}
+	ret[nlen] = a * (n % 10) + '0';
+	return (ret);
 }

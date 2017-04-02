@@ -5,108 +5,82 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/14 17:54:40 by ygokol            #+#    #+#             */
-/*   Updated: 2017/03/27 19:08:23 by ygokol           ###   ########.fr       */
+/*   Created: 2017/04/02 15:36:02 by ygokol            #+#    #+#             */
+/*   Updated: 2017/04/02 15:36:04 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-t_argmnt		*init_struct(t_argmnt *tmp)
+int		add_new(t_printf *elem, va_list *ap)
 {
-	tmp->flag.hash = 0;
-	tmp->flag.zero = 0;
-	tmp->flag.minus = 0;
-	tmp->flag.plus = 0;
-	tmp->flag.space = 0;
-	tmp->width = 0;
-	tmp->prec = 0;
-	tmp->modif = NULL;
-	tmp->type = '\0';
-	tmp->arg = NULL;
-	tmp->pad = 0;
-	return (tmp);
-}
-
-int				analyze(const char *format, va_list ap, int *i)
-{
-	t_argmnt	*tmp;
-	int			x;
-
-	x = *i;
-	tmp = malloc(sizeof(t_argmnt));
-	tmp = init_struct(tmp);
-	while (format[x] != '\0' && format[x] == '%')
-	{
-		if (format[x] == '%')
-		{
-			x++;
-			parse_type(format, tmp, x);
-		}
-		else
-			x++;
-	}
-	tmp->arg = print_arg(tmp, ap);
-	(tmp->arg == NULL && !tmp->prec) ? tmp->arg = "(null)" : tmp->arg;
-	if (tmp->type == '\0')
-		return (0);
-	*i += tmp->pad;
-	if ((tmp->type == 'c' || tmp->type == 'C') && tmp->arg[0] == 0)
-		return (1);
-	return (write(1, tmp->arg, (int)ft_strlen(tmp->arg)));
-}
-
-int				is_percent(const char *str, int i)
-{
-	if (str[i] == '%' && str[i + 1] == '%')
-	{
-		i++;
-		return (1);
-	}
+	if (elem->type == 's')
+		return (print_string(elem, ap));
+	else if (elem->type == 'S' || elem->type == 'C')
+		return (print_wchar(elem, ap));
+	else if (elem->type == 'p')
+		return (print_adress(elem, ap));
+	else if (elem->type == 'd' || elem->type == 'i' || elem->type == 'D')
+		return (print_int(elem, ap));
+	else if (elem->type == 'f' || elem->type == 'F')
+		return (print_double(elem, ap));
+	else if (elem->type == 'e' || elem->type == 'E')
+		return (print_double_e(elem, ap));
+	else if (elem->type == 'g' || elem->type == 'G')
+		return (print_double_short(elem, ap));
+	else if (elem->type == 'u' || elem->type == 'U')
+		return (print_int_unsigned(elem, ap));
+	else if (elem->type == 'o' || elem->type == 'O' || elem->type == 'x'
+			|| elem->type == 'X' || elem->type == 'b')
+		return (print_another_system(elem, ap));
+	else if (elem->type == 'c')
+		return (print_char(elem, ap, 0));
 	else
-		return (0);
+		return (print_char(elem, ap, 1));
+	return (0);
 }
 
-int				ft_iswildcard(const char *str)
+int		ft_find_per(va_list *ap, t_printf *elem, int *i, char *format)
 {
-	int			i;
-
-	i = 0;
-	while (str[i])
+	if (elem == NULL)
+		elem = create_type(format, i, ap);
+	else
 	{
-		if (str[i] == '*' && str[i - 1] == '.')
-			return (1);
-		if (str[i] == '*' && str[i - 1] == '%')
-			return (1);
-		i++;
+		elem->next = create_type(format, i, ap);
+		elem = elem->next;
+	}
+	if (elem != NULL)
+	{
+		return (add_new(elem, ap));
 	}
 	return (0);
 }
 
-int				ft_printf(const char *format, ...)
+int		ft_printf(const char *format, ...)
 {
 	va_list		ap;
+	t_printf	*elem;
 	int			i;
-	int			j;
+	int			ret;
+	char		*test;
 
 	i = 0;
-	j = 0;
-	if (!ft_strcmp(format, "%") || ft_iswildcard(format))
-		return (0);
-	if (!ft_strchr(format, '%'))
-	{
-		ft_putstr((char*)format);
-		return ((int)ft_strlen((char*)format));
-	}
+	test = ft_strdup(format);
 	va_start(ap, format);
-	while (format[i] && i <= (int)ft_strlen(format))
+	elem = NULL;
+	ret = 0;
+	while (format[i])
 	{
-		if (format[i] == '%' && format[i + 1] && !is_percent(format, i))
-			j += analyze(format, ap, &i);
-		else if (!is_percent(format, i))
-			j += write(1, &format[i], 1);
-		i++;
+		if (format[i] == '%')
+			ret += ft_find_per(&ap, elem, &i, (char *)format);
+		else if (format[i] == '{')
+			i = ft_colors(test, i);
+		else
+		{
+			ft_putchar(test[i++]);
+			ret++;
+		}
 	}
 	va_end(ap);
-	return (j);
+	return (ret);
 }
