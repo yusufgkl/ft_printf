@@ -6,7 +6,7 @@
 #    By: ygokol <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/02 15:36:48 by ygokol            #+#    #+#              #
-#    Updated: 2017/04/02 16:00:43 by ygokol           ###   ########.fr        #
+#    Updated: 2017/04/02 16:42:52 by ygokol           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,6 +81,7 @@ clean:
 fclean: clean
 	@echo "$(GRE) ===== CLEAN    en cours     =====$(DEF)"
 	@rm -f $(NAME)
+	@rm -f $(OBJ)
 	@echo "$(GRE) ===== CLEAN    termine      =====$(DEF)"
 
 re: fclean all
