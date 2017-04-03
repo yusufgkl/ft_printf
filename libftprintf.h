@@ -1,102 +1,109 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftprintf.h                                      :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygokol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/02 15:21:28 by ygokol            #+#    #+#             */
-/*   Updated: 2017/04/02 15:21:37 by ygokol           ###   ########.fr       */
+/*   Created: 2017/01/14 20:43:58 by ygokol            #+#    #+#             */
+/*   Updated: 2017/03/27 20:50:48 by ygokol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
-
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdarg.h>
+#ifndef _LIBFTPRINTF_H
+# define _LIBFTPRINTF_H
 # include <limits.h>
-# include "./libft.h"
+# include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
+# include <stdarg.h>
+# include <wchar.h>
+# include "libft.h"
+# define KNRM  "\x1B[0m"
+# define KRED  "\x1B[31m"
+# define KGRN  "\x1B[32m"
+# define KYEL  "\x1B[33m"
+# define KBLU  "\x1B[34m"
+# define KMAG  "\x1B[35m"
+# define KCYN  "\x1B[36m"
+# define KWHT  "\x1B[37m"
 
-# define TYPES "sSpdDiboOuUxXcCfFeEgG%RZ"
-# define AN_SYS "bxXoO"
-# define SINGLE "cCRZ%"
-# define FLAGS " #0-+"
-# define NL "(null)"
-
-typedef struct	s_printf
+typedef struct			s_flags
 {
-	char		*flags;
-	int			width;
-	int			accuracy;
-	char		modificator;
-	char		type;
-	void		*next;
-}				t_printf;
+	int					hash;
+	int					zero;
+	int					minus;
+	int					plus;
+	int					space;
+}						t_flags;
 
-int				abs(int d);
-void			fill_type(t_printf **elem, int *i);
-t_printf		*create_type(const char *type, int *i, va_list *ap);
-int				flags(const char *type, int i, t_printf **elem, int flag);
-int				int_w(const char *type, int i, t_printf **elem, va_list *ap);
-int				int_a(const char *type, int i, t_printf **elem, va_list *ap);
-int				help_modificators(const char *type, int i, t_printf **elem);
-int				modificators(const char *type, int i, t_printf **elem);
-char			*ft_encode(wchar_t c);
-int				print_wchar(t_printf *elem, va_list *ap);
-int				adress_acc(char *str, t_printf *elem);
-int				print_adress(t_printf *elem, va_list *ap);
-int				ft_putwchar(wchar_t c);
-int				ft_putwchars(wchar_t *str);
-int				first_str_wch(wchar_t *str, t_printf *elem, char c, int acc);
-int				first_c_wch(wchar_t *str, t_printf *elem, char c, int acc);
-int				create_spaces_wch(wchar_t *str, t_printf *elem);
-void			first_str(char *str, t_printf *elem, char c, int acc);
-void			first_c(char *str, t_printf *elem, char c, int acc);
-void			create_spaces(char *str, t_printf *elem, char c, int flag);
-int				print_string(t_printf *elem, va_list *ap);
-int				print_char(t_printf *elem, va_list *ap, int flag);
-int				ft_count(long long int value, int base);
-int				ft_count_unsigned(unsigned long long int value, int base);
-int				ft_count_test(intmax_t value, int base);
-void			ft_putnbr_unsigned(unsigned long long int d);
-char			*ft_itoa_base(long long int value, int base, int flag);
-char			*ft_itoa_base_unsigned(unsigned long long int value,
-									int base, int flag);
-char			*ft_itoa_base_test(intmax_t value, int base, int flag);
-int				print_hash(int d, t_printf *elem);
-int				print_plus(int d, t_printf *elem);
-int				count_plus(int d, t_printf *elem);
-int				find_biggest(int len, int wid, int acc);
-int				print_space(char **str, t_printf *elem, int wid, char c);
-int				acc(t_printf *elem, char **str, int d);
-void			help_int_width(t_printf *elem, char *str, int d, int len);
-int				int_width(t_printf *elem, char *str, int d);
-void			modific(long long int *d, t_printf *elem, va_list *ap);
-int				print_int(t_printf *elem, va_list *ap);
-char			*get_another_sys(t_printf *elem, unsigned long long int d);
-int				print_another_system(t_printf *elem, va_list *ap);
-void			modific_unsigned(unsigned long long int *d,
-									t_printf *elem, va_list *ap);
-int				print_int_unsigned(t_printf *elem, va_list *ap);
-char			*ft_get_double(long double d, t_printf *elem);
-char			*ft_get_double_e(long double d, t_printf *elem);
-int				print_e(t_printf *elem, long double d, char *str, int ten);
-int				print_double_e(t_printf *elem, va_list *ap);
-int				print_double_short(t_printf *elem, va_list *ap);
-int				ft_10pow(int d);
-int				ft_intlen(long int d, int flag);
-int				count_dig(char *str);
-int				print_dob(char *str, t_printf *elem, long double d);
-int				print_double(t_printf *elem, va_list *ap);
-int				add_new(t_printf *elem, va_list *ap);
-int				ft_find_per(va_list *ap, t_printf *elem, int *i, char *format);
-int				ft_printf(const char *format, ...);
-void			ft_putcolor(char *str);
-int				ft_colors(char *str, int i);
-void			text_example(void);
-void			color_example(void);
-void			usage(void);
+typedef struct			s_argmnt
+{
+	struct s_flags		flag;
+	int					width;
+	int					prec;
+	char				*modif;
+	char				type;
+	char				*arg;
+	int					pad;
+	struct s_argmnt		*next;
+}						t_argmnt;
+
+int						ft_printf(const char *format, ...);
+void					parse_width(const char *chr, t_argmnt *tmp, int i);
+void					parse_prec(const char *chr, t_argmnt *tmp, int i);
+void					parse_type(const char *chr, t_argmnt *tmp, int i);
+void					parse_modif(const char *chr, t_argmnt *tmp, int i);
+void					parse_flags(const char *chr, t_argmnt *tmp, int i);
+char					*itoabase(unsigned int num, int base);
+char					*itoa_h(short num, int base);
+char					*strtoup(char *str);
+char					*conv_o(unsigned long long n);
+char					*conv_p(unsigned long long n);
+void					flag_hashtg(t_argmnt *tmp);
+char					*flag_zero(t_argmnt *tmp, int size);
+char					*fill_char(int i, char c);
+void					putnbr_l(long n, t_argmnt *tmp);
+void					modif_di(t_argmnt *tmp, va_list ap);
+char					*ctostr(char c);
+char					*width_di(t_argmnt *tmp);
+void					print_arg_modif(t_argmnt *tmp, va_list ap);
+void					print_arg_flag(t_argmnt *tmp);
+void					print_arg_type(t_argmnt *tmp, va_list ap);
+int						isflag (t_flags flag);
+char					*print_arg(t_argmnt *tmp, va_list ap);
+char					*ft_ltoa(long n);
+void					putnbr_l(long n, t_argmnt *tmp);
+char					*ft_wputchar(wchar_t c);
+char					*ft_ultoa(unsigned long n);
+void					modif_ouxx(t_argmnt *tmp, va_list ap);
+char					*ft_print_special(wint_t c);
+int						nb_flags(t_flags f);
+void					print_arg_prec(t_argmnt *tmp);
+void					print_arg_width(t_argmnt *tmp);
+void					print_arg_modif(t_argmnt *tmp, va_list ap);
+void					print_arg_flag(t_argmnt *tmp);
+int						ft_atoi(const char *str);
+int						ft_isalpha(int c);
+int						ft_isdigit(int c);
+int						ft_isprint(int c);
+char					*ft_itoa(int n);
+void					ft_putchar(char c);
+void					ft_putnbr(int n);
+void					ft_putstr(char *str);
+char					*ft_strcat(char *s1, const char *s2);
+char					*ft_strchr(const char *s, int c);
+int						ft_strcmp(const char *s1, const char *s2);
+char					*ft_strcpy(char *dest, const char *src);
+char					*ft_strjoin(char *s1, const char *s2);
+size_t					ft_strlcat(char *s1, const char *s2, size_t n);
+size_t					ft_strlen(const char *str);
+char					*ft_strncat(char *s1, const char *s2, size_t n);
+int						ft_strncmp(const char *s1, const char *s2, size_t n);
+char					*ft_strncpy(char *dest, const char *src, size_t len);
+int						ft_tolower(int c);
+int						ft_toupper(int c);
+int						ft_numlen(int nb);
+int						ft_charblank(char c);
 
 #endif
